@@ -26,12 +26,12 @@ const TopBar = () => {
           </SignedIn>
         </div>
         <OrganizationSwitcher
-        appearance={{
+          appearance={{
             baseTheme: dark,
             elements: {
-                organiziationSwitcherTrigger: "py-2 px-4",
-            }
-        }}
+              organiziationSwitcherTrigger: "py-2 px-4",
+            },
+          }}
         />
       </div>
     </nav>
