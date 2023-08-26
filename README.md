@@ -1,3 +1,5 @@
+Threads Web app.
+
 ## UI library used :
 Tailwind css,
 https://ui.shadcn.com/
