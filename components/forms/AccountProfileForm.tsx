@@ -44,19 +44,7 @@ const AccountProfileForm = ({ user, btnTitle }: AccountProfileFormProps) => {
     defaultValues: defaultValues,
   });
 
-  const onSubmit = async (values: z.infer<typeof userValidation>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    const blob = values.profile_photo;
-    const isValidIamge = isBase64Image(blob);
-    console.log(isValidIamge);
-    if (isValidIamge) {
-      const imageRes = await startUpload(file);
-    }
-  };
-
-
+  
   //Handle Image upload
   const handleImage = (
     event: ChangeEvent<HTMLInputElement>,
@@ -74,6 +62,27 @@ const AccountProfileForm = ({ user, btnTitle }: AccountProfileFormProps) => {
       setfile((prev) => [...prev, file]);
     }
   };
+
+  const onSubmit = async (values: z.infer<typeof userValidation>) => {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+    const blob = values.profile_photo;
+    const isValidIamge = isBase64Image(blob);
+    console.log(isValidIamge)
+   
+    if (isValidIamge) {
+      const imgRes = await startUpload(file);
+
+      if (imgRes && imgRes[0].fileUrl) {
+        values.profile_photo = imgRes[0].fileUrl;
+      } 
+    }
+
+    // TODO: // Update user profile ...
+  };
+
+
 
   return (
     <Form {...form}>
