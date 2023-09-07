@@ -7,5 +7,12 @@ export type userData = {
   username: string;
   name: string;
   bio: string;
-  image: string;
+  profile_photo: string;
 };
+
+export type userFormData = {
+  name: string,
+  username: string,
+  bio: string,
+  profile_photo: string,
+}
