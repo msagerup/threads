@@ -22,7 +22,7 @@ export async function updateUser(
       {
         username: username.toLowerCase(),
         name,
-        profile_photo: "tes66t",
+        profile_photo,
         bio,
         onboarded: true,
       },
@@ -34,5 +34,5 @@ export async function updateUser(
     }
   } catch (error: any) {
     throw new Error(`Error updating user: ${error.message}`);
-  }
-}
+  }          
+}                             

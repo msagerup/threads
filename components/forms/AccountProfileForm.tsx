@@ -25,9 +25,9 @@ import { isBase64Image } from "@/lib/utils";
 import { userValidation } from "@/lib/validations/user";
 import { updateUser } from "@/lib/actions/user.actions";
 
-interface Props {
+interface AccountProfileProps {
   user: {
-    id: string;
+    id?: string;
     objectId: string;
     username: string;
     name: string;
@@ -37,10 +37,13 @@ interface Props {
   btnTitle: string;
 }
 
-const AccountProfile = ({ user, btnTitle }: Props) => {
+const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const { startUpload } = useUploadThing("media");
+  const [isLoading, setIsLoading] = useState(false)
+
+  console.log(user, 'user')
 
   const [files, setFiles] = useState<File[]>([]);
 
@@ -55,6 +58,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   });
 
   const onSubmit = async (values: z.infer<typeof userValidation>) => {
+    setIsLoading(true)
     const blob = values.profile_photo;
 
     const hasImageChanged = isBase64Image(blob);
@@ -66,8 +70,10 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       }
     }
 
-    // TODO: // Update user profile ...
-    await updateUser(user.id, pathname, values);
+    if (user.id) {
+      await updateUser(user.id, pathname, values);
+      setIsLoading(false)
+    }
 
     if (pathname === "/profile/edit") {
       router.back();
@@ -204,7 +210,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         />
 
         <Button type='submit' className='bg-primary-500'>
-          {btnTitle}
+          {isLoading ? 'Loading...' : btnTitle}
         </Button>
       </form>
     </Form>

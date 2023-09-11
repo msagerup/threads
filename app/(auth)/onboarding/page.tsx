@@ -12,7 +12,7 @@ async function Page() {
     username: userInfo?.username || user?.username,
     name: userInfo?.name || user?.firstName + " " + user?.lastName,
     bio: userInfo?.bio || "",
-    image: userInfo?.image || user?.imageUrl,
+    profile_photo: userInfo?.profile_photo || user?.imageUrl,
   };
 
   return (
