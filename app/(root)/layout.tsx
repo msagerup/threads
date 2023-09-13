@@ -10,11 +10,10 @@ import BottomBar from "@/components/shared/BottomBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata : Metadata = {
+export const metadata: Metadata = {
   title: "Threads",
   description: "A next.js 13 Meta Threads clone Application",
 };
-
 
 export default function RootLayout({
   children,
@@ -29,7 +28,9 @@ export default function RootLayout({
           <main className='flex flex-row'>
             <LeftsideBar />
             <section className='main-container'>
-              <div className='w-full max-w-4xl'>{children}</div>
+              <div className='w-full max-w-4xl'>
+                {children}
+              </div>
             </section>
             <RightSideBar />
           </main>
