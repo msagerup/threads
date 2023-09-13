@@ -15,13 +15,12 @@ import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { Button } from "@/components/ui/button";
 import { createThread } from "@/lib/actions/createThread.actions";
-import { ObjectId } from 'mongoose';
+import { ObjectId } from "mongoose";
 import { usePathname, useRouter } from "next/navigation";
 
 const PostThread = ({ userId }: { userId: ObjectId | string }) => {
-
-    const router = useRouter();
-    const pathname = usePathname();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof commentValidation>>({
     resolver: zodResolver(commentValidation),
@@ -35,14 +34,13 @@ const PostThread = ({ userId }: { userId: ObjectId | string }) => {
       await createThread({
         thread: values.thread,
         userId: userId,
-        commnunity: 'none',
-        path: pathname
+        commnunity: "none",
+        path: pathname,
       });
 
-      router.push('/')
-
+      router.push("/");
     } catch (error) {
-        console.error(error, "error");
+      console.error(error, "error");
     }
   };
 

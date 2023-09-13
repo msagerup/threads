@@ -16,8 +16,6 @@ export default async function CreateThread() {
     }
     
 
-    // console.log(userInfo, 'user info')
-
   return (
     <>
       <h1 className='head-text'>create thread</h1>

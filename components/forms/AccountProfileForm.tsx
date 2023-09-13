@@ -106,8 +106,6 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
     }
   };
 
-  
-
   return (
     <Form {...form}>
       <form
