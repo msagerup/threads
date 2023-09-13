@@ -4,7 +4,6 @@ import { currentUser } from '@clerk/nextjs';
 const file = createUploadthing();
  
 const auth = async () => await currentUser();
- console.log('is this running?')
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
   // Define as many FileRoutes as you like, each with a unique routeSlug

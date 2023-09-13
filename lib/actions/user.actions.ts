@@ -9,14 +9,12 @@ export async function updateUser(
   path: string,
   values: userFormData
 ): Promise<void> {
-
   /*** Consts */
   const { username, name, profile_photo, bio } = values;
   /*** End Consts */
 
   try {
     await connectToDB();
-
     await User.findOneAndUpdate(
       { id: userId },
       {
@@ -34,5 +32,14 @@ export async function updateUser(
     }
   } catch (error: any) {
     throw new Error(`Error updating user: ${error.message}`);
-  }          
-}                             
+  }
+}
+
+export async function fetchUser(id: string) {
+  try {
+    await connectToDB();
+    return await User.findOne({ id });
+  } catch (error: any) {
+    throw new Error(`Error fetching user: ${error.message}`);
+  }
+}

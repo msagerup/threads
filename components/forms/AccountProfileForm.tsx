@@ -41,9 +41,9 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const { startUpload } = useUploadThing("media");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
-  console.log(user, 'user')
+  console.log(user, "user");
 
   const [files, setFiles] = useState<File[]>([]);
 
@@ -57,30 +57,6 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof userValidation>) => {
-    setIsLoading(true)
-    const blob = values.profile_photo;
-
-    const hasImageChanged = isBase64Image(blob);
-    if (hasImageChanged) {
-      const imgRes = await startUpload(files);
-
-      if (imgRes && imgRes[0].fileUrl) {
-        values.profile_photo = imgRes[0].fileUrl;
-      }
-    }
-
-    if (user.id) {
-      await updateUser(user.id, pathname, values);
-      setIsLoading(false)
-    }
-
-    if (pathname === "/profile/edit") {
-      router.back();
-    } else {
-      router.push("/");
-    }
-  };
 
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
@@ -104,6 +80,33 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
       fileReader.readAsDataURL(file);
     }
   };
+
+  const onSubmit = async (values: z.infer<typeof userValidation>) => {
+    setIsLoading(true);
+    const blob = values.profile_photo;
+
+    const hasImageChanged = isBase64Image(blob);
+    if (hasImageChanged) {
+      const imgRes = await startUpload(files);
+
+      if (imgRes && imgRes[0].fileUrl) {
+        values.profile_photo = imgRes[0].fileUrl;
+      }
+    }
+
+    if (user.id) {
+      await updateUser(user.id, pathname, values);
+      setIsLoading(false);
+    }
+
+    if (pathname === "/profile/edit") {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  };
+
+  
 
   return (
     <Form {...form}>
@@ -210,7 +213,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
         />
 
         <Button type='submit' className='bg-primary-500'>
-          {isLoading ? 'Loading...' : btnTitle}
+          {isLoading ? "Loading..." : btnTitle}
         </Button>
       </form>
     </Form>
@@ -218,5 +221,3 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
 };
 
 export default AccountProfile;
-
-   
