@@ -1,29 +1,40 @@
 import { Thread } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { ReactNode } from "react";
 
-const images = [
-  { image: "/assets/heart-gray.svg", alt: "heart icon" },
-  { image: "/assets/reply.svg", alt: "reply icon" },
-  { image: "/assets/repost.svg", alt: "repost icon" },
-  { image: "/assets/share.svg", alt: "share icon" },
-].map(({image, alt}) => {
-  return (
-    <Image
-      key={image}
-      className='cursor-pointer object-contain'
-      src={image}
-      alt={alt}
-      width={24}
-      height={24}
-    />
-  );
-});
+const renderSocialLinks = (id: string): ReactNode => {
+  // TODO: implement other social links
+  return [
+    //   { image: "/assets/heart-gray.svg", alt: "heart icon"},
+    { image: "/assets/reply.svg", alt: "reply icon" },
+    //   { image: "/assets/repost.svg", alt: "repost icon" },
+    //   { image: "/assets/share.svg", alt: "share icon" },
+  ].map(({ image, alt }) => {
+    return (
+      <Link href={`/thread/${id}`} key={image}>
+        <Image
+          className='cursor-pointer object-contain'
+          src={image}
+          alt={alt}
+          width={24}
+          height={24}
+        />
+      </Link>
+    );
+  });
+};
 
-const ThreadCard = ({ thread }: any) => {
+const ThreadCard = ({ thread }: Thread) => {
+  const isComment = [];
+
+  // TODO: fix types
   //Constants
-  const { text, author, replies, updatedAt, createdAt } = thread;
+  const { text, id, author, replies, updatedAt, createdAt } = thread as Thread;
 
+  console.log("threadss", thread.id, thread);
+
+  const socialImageLinks = renderSocialLinks(id);
 
   return (
     <article className='flex w-full flex-col rounded-lg bg-dark-2 p-7'>
@@ -51,9 +62,15 @@ const ThreadCard = ({ thread }: any) => {
             </Link>
             <p className='mt-2 text-small-regular text-light-2'>{text}</p>
             <div className='mt-5 flex flex-col gap-3'>
-                <div className='flex gap-3.5'>
-                    {images}
-                </div>
+              <div className='flex gap-3.5'>
+                {socialImageLinks}
+              </div>
+              {isComment.length > 0 
+              && <Link href={`/thread/${id}`}>
+                <p className='mt-1 text-subtle-medium text-gray-1'>
+                  {isComment.length} replies
+                  </p>
+                </Link>}
             </div>
           </div>
         </div>

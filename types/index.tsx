@@ -24,7 +24,7 @@ export type userFormData = {
 export type Thread = {
   _id: ObjectId | string,
   text: string,
-  author: ObjectId | string,
+  author: Author,
   replies: ObjectId[] | string[],
   updatedAt: Date,
   createdAt: Date,
@@ -32,4 +32,16 @@ export type Thread = {
 
 export type Threads = {
   threads: Thread[],
+}
+
+export type Author = {
+  _id: ObjectId | string,
+  id: string,
+  bio: string,
+  communities: ObjectId[] | string[],
+  name: string,
+  onboarded: boolean,
+  profile_photo: string,
+  username: string,
+  threads: ObjectId[] | string[]
 }
