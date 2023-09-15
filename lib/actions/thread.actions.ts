@@ -106,12 +106,30 @@ export async function fetchThreadById(threadId: string) {
   }
 }
 
+export async function fetchThreadByUserId(userId: string) {
+  try {
+    await connectToDB();
+    const threads = await Thread.find({ author: userId })
+    .populate([{ path: "author", model: User }, { path: "replies", model: Thread }])
+    return threads;
+  } catch (error: any) {
+    throw new Error(
+      `Error fetching thread by user: ${userId} => ${error.message}`
+    );
+  }
+}
+
 export async function addCommentToThread({
   threadId,
   commentText,
   userId,
   path,
-}: {threadId: string, commentText: string, userId: string, path: string}) {
+}: {
+  threadId: string;
+  commentText: string;
+  userId: string;
+  path: string;
+}) {
   try {
     await connectToDB();
     const thread = await Thread.findById(threadId);

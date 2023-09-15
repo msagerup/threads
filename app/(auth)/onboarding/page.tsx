@@ -1,19 +1,20 @@
 import AccountProfileForm from "@/components/forms/AccountProfileForm";
+import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 async function Page() {
   const user = await currentUser();
 
-  const userInfo = {};
+  if (!user) {
+    redirect("/sign-in");
+  }
 
-  const userData = {
-    id: user?.id,
-    objectId: userInfo?._id,
-    username: userInfo?.username || user?.username,
-    name: userInfo?.name || user?.firstName + " " + user?.lastName,
-    bio: userInfo?.bio || "",
-    profile_photo: userInfo?.profile_photo || user?.imageUrl,
-  };
+  const userInfo = await fetchUser(user.id);
+
+  if (userInfo.onboarded) {
+    redirect("/");
+  }
 
   return (
     <main className='mx-auto flex max-w-3xl flex-col justify-start px-10 py-20'>
@@ -22,7 +23,7 @@ async function Page() {
         Complete your profile to get started with Threads
       </p>
       <section className='mt-9 bg-dark-2 p-10'>
-        <AccountProfileForm user={userData} btnTitle='Continue' />
+        <AccountProfileForm user={userInfo} btnTitle='Continue' />
       </section>
     </main>
   );
