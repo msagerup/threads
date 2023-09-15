@@ -43,8 +43,6 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
   const { startUpload } = useUploadThing("media");
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(user, "user");
-
   const [files, setFiles] = useState<File[]>([]);
 
   const form = useForm<z.infer<typeof userValidation>>({

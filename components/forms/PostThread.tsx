@@ -14,9 +14,10 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { Button } from "@/components/ui/button";
-import { createThread } from "@/lib/actions/createThread.actions";
+import { createThread } from "@/lib/actions/thread.actions";
 import { ObjectId } from "mongoose";
 import { usePathname, useRouter } from "next/navigation";
+import { toast } from 'react-toastify';
 
 const PostThread = ({ userId }: { userId: ObjectId | string }) => {
   const router = useRouter();
@@ -37,10 +38,11 @@ const PostThread = ({ userId }: { userId: ObjectId | string }) => {
         commnunity: "none",
         path: pathname,
       });
-
+      toast('😎 Thread created', { autoClose: 1500, type: 'success', position:'bottom-right' })
       router.push("/");
     } catch (error) {
       console.error(error, "error");
+      toast('Obs... Something went wrong, please try again.', { autoClose: 5000, type: 'error', position:'bottom-right' })
     }
   };
 
