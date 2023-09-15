@@ -7,7 +7,7 @@ The application lets you create threads, comment, tag share etc..
 Tailwind css,
 https://ui.shadcn.com/
 
-### Other:Markdown Preview Enhanced
+### Other:
 Clerk: User Authentication,
 Zod (https://zod.dev/) : To validate form inputs
 
