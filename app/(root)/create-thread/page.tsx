@@ -11,7 +11,7 @@ export default async function CreateThread() {
         redirect('/sign-in')
     }
     const userInfo: userData = await fetchUser(user.id)
-    if(!userInfo.onboarded) {
+    if(!userInfo?.onboarded) {
         redirect('/onboarding')
     }
     

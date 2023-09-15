@@ -16,7 +16,7 @@ const ThreadDetails = async ({
     redirect("/sign-in");
   }
   const userInfo = await fetchUser(user.id);
-  if (!userInfo.onboarded) {
+  if (!userInfo?.onboarded) {
     redirect("/onboarding");
   }
 
@@ -26,7 +26,7 @@ const ThreadDetails = async ({
   return (
     <section className='relative'>
       <div>
-        <ThreadCard key={thread._id} thread={thread} />
+        <ThreadCard key={thread._id} thread={thread} hidePreview={true} />
       </div>
 
       <div className='mt-7'>
@@ -38,7 +38,7 @@ const ThreadDetails = async ({
       </div>
       <div className='mt-10'>
         {thread.replies.map((reply) => {
-          return <ThreadCard key={reply._id} thread={reply} isComment={true} />;
+          return <ThreadCard key={reply._id} thread={reply} isComment={true}  />;
         })}
       </div>
     </section>
