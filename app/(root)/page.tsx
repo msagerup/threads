@@ -1,6 +1,6 @@
 //app/page.tsx
 import ThreadCard from "@/components/cards/ThreadCard";
-import { fetchThreads } from "@/lib/actions/createThread.actions";
+import { fetchThreads } from "@/lib/actions/thread.actions";
 
 export default async function Home() {
   const results = await fetchThreads();

@@ -2,6 +2,8 @@ import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 import TopBar from "@/components/shared/TopBar";
 import LeftsideBar from "@/components/shared/LeftSideBar";
@@ -24,6 +26,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang='en'>
         <body className={inter.className}>
+        <ToastContainer />
           <TopBar />
           <main className='flex flex-row'>
             <LeftsideBar />

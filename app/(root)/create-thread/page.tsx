@@ -15,7 +15,6 @@ export default async function CreateThread() {
         redirect('/onboarding')
     }
     
-
   return (
     <>
       <h1 className='head-text'>create thread</h1>
