@@ -2,17 +2,19 @@ import { Thread } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
+import Share from '../shared/Share';
 
 const renderSocialLinks = (id: string): ReactNode => {
   // TODO: implement other social links
   return [
-    //   { image: "/assets/heart-gray.svg", alt: "heart icon"},
-    { image: "/assets/reply.svg", alt: "reply icon" },
-    //   { image: "/assets/repost.svg", alt: "repost icon" },
-    //   { image: "/assets/share.svg", alt: "share icon" },
-  ].map(({ image, alt }) => {
+    //   { image: "/assets/heart-gray.svg", alt: "heart icon", link: ''},
+    { image: "/assets/reply.svg", alt: "reply icon", link: `/thread/${id}` },
+    //   { image: "/assets/repost.svg", alt: "repost icon", link: '' },
+    //   { image: "/assets/share.svg", alt: "share icon", link: '' },
+  ].map(({ image, alt, link }) => {
     return (
-      <Link href={`/thread/${id}`} key={image}>
+      
+      <Link href={link} key={image}>
         <Image
           className='cursor-pointer object-contain'
           src={image}
@@ -25,18 +27,24 @@ const renderSocialLinks = (id: string): ReactNode => {
   });
 };
 
-const ThreadCard = ({ thread, isComment} : Thread) => {
-
-
-  // TODO: fix types
+const ThreadCard = ({
+  thread,
+  isComment,
+}: {
+  thread: Thread;
+  isComment: boolean;
+}) => {
   //Constants
-  const { text, id, author, replies, updatedAt, createdAt } = thread as Thread;
-
+  const { text, id, author, replies, updatedAt, createdAt } = thread;
 
   const socialImageLinks = renderSocialLinks(id);
 
   return (
-    <article className={`flex w-full flex-col rounded-lg ${isComment ? 'px-0 xs:px-7' : 'bg-dark-2 p-7'}`}>
+    <article
+      className={`flex w-full flex-col rounded-lg ${
+        isComment ? "px-0 xs:px-7" : "bg-dark-2 p-7"
+      }`}
+    >
       <div className='flex items-start justify-between'>
         <div className='flex w-full flex-1 flex-row gap-4'>
           <div className='flex flex-col items-center'>
@@ -63,13 +71,15 @@ const ThreadCard = ({ thread, isComment} : Thread) => {
             <div className='mt-5 flex flex-col gap-3'>
               <div className='flex gap-3.5'>
                 {socialImageLinks}
+                <Share link={`/thread/${id}`}/>
               </div>
-              {isComment
-              && <Link href={`/thread/${id}`}>
-                <p className='mt-1 text-subtle-medium text-gray-1'>
-                  {thread.length} replies
+              {isComment && (
+                <Link href={`/thread/${id}`}>
+                  <p className='mt-1 text-subtle-medium text-gray-1'>
+                    {thread.length} replies
                   </p>
-                </Link>}
+                </Link>
+              )}
             </div>
           </div>
         </div>

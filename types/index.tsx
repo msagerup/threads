@@ -12,6 +12,7 @@ export type userData = {
   bio: string;
   profile_photo: string;
   onboarded?: boolean;
+  threads: ObjectId[]
 };
 
 export type userFormData = {
@@ -22,6 +23,7 @@ export type userFormData = {
 }
 
 export type Thread = {
+  id : string,
   _id: ObjectId | string,
   text: string,
   author: Author,
