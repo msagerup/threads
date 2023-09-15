@@ -18,11 +18,12 @@ const Profile = async ({ params }: { params: { id: string } }) => {
   }
   const profileData: userData = await fetchUser(id);
 
+
+  // console.log(profileData)
+
   if (!profileData) {
     return null;
   }
-
-  console.log(profileData);
 
   return (
     <section>

@@ -2,7 +2,9 @@ import { Thread } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
-import Share from '../shared/Share';
+import Share from "../shared/Share";
+import ProfileHeader from "../shared/ProfileHeader";
+import RepliesPreview from "../shared/RepliesPreview";
 
 const renderSocialLinks = (id: string): ReactNode => {
   // TODO: implement other social links
@@ -13,7 +15,6 @@ const renderSocialLinks = (id: string): ReactNode => {
     //   { image: "/assets/share.svg", alt: "share icon", link: '' },
   ].map(({ image, alt, link }) => {
     return (
-      
       <Link href={link} key={image}>
         <Image
           className='cursor-pointer object-contain'
@@ -30,14 +31,18 @@ const renderSocialLinks = (id: string): ReactNode => {
 const ThreadCard = ({
   thread,
   isComment,
+  hidePreview,
 }: {
   thread: Thread;
   isComment: boolean;
+  hidePreview?: boolean;
 }) => {
   //Constants
   const { text, id, author, replies, updatedAt, createdAt } = thread;
 
   const socialImageLinks = renderSocialLinks(id);
+
+  // console.log('replies', replies )
 
   return (
     <article
@@ -68,17 +73,22 @@ const ThreadCard = ({
               </h4>
             </Link>
             <p className='mt-2 text-small-regular text-light-2'>{text}</p>
-            <div className='mt-5 flex flex-col gap-3'>
+            <div className={`${isComment && "mb-7"} mt-5 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
                 {socialImageLinks}
-                <Share link={`/thread/${id}`}/>
+                <Share link={`/thread/${id}`} />
               </div>
-              {isComment && (
-                <Link href={`/thread/${id}`}>
-                  <p className='mt-1 text-subtle-medium text-gray-1'>
-                    {thread.length} replies
-                  </p>
-                </Link>
+              {/* Bleh... this is not very readable..TODO: refactor..  */}
+              {hidePreview ? (
+                replies.length > 0 && (
+                  <Link href={`/thread/${id}`}>
+                    <p className='mt-1 text-subtle-medium text-gray-1'>{`${
+                      replies.length
+                    } ${replies.length >= 1 ? "reply" : "replies"} `}</p>
+                  </Link>
+                )
+              ) : (
+                <RepliesPreview replies={replies} />
               )}
             </div>
           </div>

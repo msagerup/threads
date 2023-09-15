@@ -13,7 +13,7 @@ Zod (https://zod.dev/) : To validate form inputs
 
 ### The goal of this app.
 
-+ Aim for 100 / 100 for performance and SEO on Lightsail.
++ Aim for 100 / 100 for performance and SEO.
 + Split code into server side and client side components. 
 + Implement Next 13's Server side actions.
 
