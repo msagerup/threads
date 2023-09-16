@@ -3,16 +3,17 @@ This is a "clone of Threads", but this is the desktop version.
 
 The application lets you create threads, comment, tag share etc.. 
 
-## Buildt with Next.js 13
+#### Buildt with Next.js 13
+
 
 ## Live build
 https://threads-nine-orpin.vercel.app/
 
 ## Speed tests
-# Varzel Analytic:
+##### Varzel:
 ![image](https://github.com/msagerup/threads/assets/23620566/1188b2e4-0941-464d-a01d-ebd64479cbff)
 
-# Chrome Lightsail:
+##### Chrome Lightsail:
 ![image](https://github.com/msagerup/threads/assets/23620566/42a11425-2940-48b5-94ac-c113acb36b30)
 
 
