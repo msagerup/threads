@@ -14,7 +14,7 @@ import { headers } from "next/headers";
 
 import { IncomingHttpHeaders } from "http";
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {
   addMemberToCommunity,
   createCommunity,
@@ -39,7 +39,8 @@ type Event = {
   type: EventType;
 };
 
-export const POST = async (request: Request) => {
+
+export const POST = async (request: NextRequest) => {
   const payload = await request.json();
   const header = headers();
 
