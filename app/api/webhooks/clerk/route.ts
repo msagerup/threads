@@ -68,7 +68,7 @@ export const POST = async (request: Request) => {
     const { id, name, slug, logo_url, image_url, created_by } =
       evnt?.data ?? {};
 
-    try {
+    try {           
       // @ts-ignore
       await createCommunity(
         // @ts-ignore
