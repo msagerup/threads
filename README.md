@@ -8,8 +8,12 @@ The application lets you create threads, comment, tag share etc..
 ## Live build
 https://threads-nine-orpin.vercel.app/
 
-
+## Speed tests
+# Varzel Analytic:
 ![image](https://github.com/msagerup/threads/assets/23620566/1188b2e4-0941-464d-a01d-ebd64479cbff)
+
+# Chrome Lightsail:
+![image](https://github.com/msagerup/threads/assets/23620566/42a11425-2940-48b5-94ac-c113acb36b30)
 
 
 
