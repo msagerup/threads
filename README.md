@@ -8,7 +8,9 @@ The application lets you create threads, comment, tag share etc..
 ## Live build
 https://threads-nine-orpin.vercel.app/
 
-![image](https://github.com/msagerup/threads/assets/23620566/8dada273-ee8e-4a5a-ba94-f80a9a36237e)
+
+![image](https://github.com/msagerup/threads/assets/23620566/1188b2e4-0941-464d-a01d-ebd64479cbff)
+
 
 
 ### UI library used :
