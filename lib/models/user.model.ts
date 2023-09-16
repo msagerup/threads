@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
   ],
   onboarded: { type: Boolean, default: false },
   profile_photo: { type: String, default: "" },
-  commuities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Community" }],
+  communities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Community" }],
 });
 
 
