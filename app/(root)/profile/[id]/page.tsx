@@ -18,9 +18,6 @@ const Profile = async ({ params }: { params: { id: string } }) => {
   }
   const profileData: userData = await fetchUser(id);
 
-
-  // console.log(profileData)
-
   if (!profileData) {
     return null;
   }
@@ -57,7 +54,10 @@ const Profile = async ({ params }: { params: { id: string } }) => {
               key={`content-${tab.label}`}
               value={tab.value}
             >
-              <ThreadsTab currentUserId={user.id} profileId={profileData._id.toString()} />
+              <ThreadsTab
+                currentUserId={user.id}
+                profileId={profileData._id.toString()}
+              />
             </TabsContent>
           ))}
           )

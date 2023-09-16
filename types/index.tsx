@@ -27,9 +27,10 @@ export type Thread = {
   _id: ObjectId | string,
   text: string,
   author: Author,
-  replies: ObjectId[] | string[],
+  replies: Thread[],
   updatedAt: Date,
   createdAt: Date,
+  parentId?: ObjectId | string,
 }
 
 export type Threads = {

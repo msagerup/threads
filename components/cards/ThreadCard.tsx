@@ -44,6 +44,29 @@ const ThreadCard = ({
 
   const socialImageLinks = renderSocialLinks(id);
 
+  const renderReplies = () => {
+    // Disables preview popup within preview pop-up's
+    if (hidePreview) {
+      return null;
+    }
+  
+    if (replies.length === 0) {
+      return null;
+    }
+    // Hides replies if it is the lead thread, since it is already displayed
+    if (isLeadThread) {
+      return null;
+    }
+  
+    return (
+      <Link href={`/thread/${id}`}>
+        <p className='mt-1 text-subtle-medium text-gray-1'>
+          {`${replies.length} ${replies.length >= 2 ? "replies" : "reply"}`}
+        </p>
+      </Link>
+    );
+  };
+
   return (
     <article
       className={`flex w-full flex-col rounded-lg ${
@@ -79,21 +102,7 @@ const ThreadCard = ({
                 {socialImageLinks}
                 <Share link={`/thread/${id}`} />
               </div>
-              {/* Bleh... this is not very readable..TODO: refactor..  */}
-              {hidePreview ? (
-                replies.length > 0 &&
-                (isLeadThread ? (
-                  ""
-                ) : (
-                  <Link href={`/thread/${id}`}>
-                    <p className='mt-1 text-subtle-medium text-gray-1'>{`${
-                      replies.length
-                    } ${replies.length >= 2 ? "replies" : "reply"} `}</p>
-                  </Link>
-                ))
-              ) : (
-                <RepliesPreview replies={replies} />
-              )}
+              { hidePreview ? renderReplies() : <RepliesPreview replies={replies} /> }
             </div>
           </div>
         </div>
