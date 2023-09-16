@@ -5,6 +5,12 @@ The application lets you create threads, comment, tag share etc..
 
 ## Buildt with Next.js 13
 
+## Live build
+https://threads-nine-orpin.vercel.app/
+
+![image](https://github.com/msagerup/threads/assets/23620566/8dada273-ee8e-4a5a-ba94-f80a9a36237e)
+
+
 ### UI library used :
 Tailwind css,
 https://ui.shadcn.com/
