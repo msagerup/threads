@@ -4,6 +4,8 @@
 
 // Resource: https://docs.svix.com/receiving/verifying-payloads/why
 // It's a good practice to verify webhooks. Above article shows why we should do it
+// export const runtime = 'edge'; // 'nodejs' is the default
+export const preferredRegion = 'fra1'; // Frankfurt, Germany
 import { Webhook, WebhookRequiredHeaders } from "svix";
 import { headers } from "next/headers";
 

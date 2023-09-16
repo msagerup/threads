@@ -25,6 +25,7 @@ export type userFormData = {
 export type Thread = {
   id : string,
   _id: ObjectId | string,
+  community: ObjectId | string,
   text: string,
   author: Author,
   replies: Thread[],

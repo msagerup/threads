@@ -17,12 +17,14 @@ import { Button } from "@/components/ui/button";
 import { createThread } from "@/lib/actions/thread.actions";
 import { ObjectId } from "mongoose";
 import { usePathname, useRouter } from "next/navigation";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import { use } from "react";
+import { useOrganization } from "@clerk/nextjs";
 
 const PostThread = ({ userId }: { userId: ObjectId | string }) => {
   const router = useRouter();
   const pathname = usePathname();
-
+  const { organization } = useOrganization();
   const form = useForm<z.infer<typeof commentValidation>>({
     resolver: zodResolver(commentValidation),
     defaultValues: {
@@ -35,14 +37,22 @@ const PostThread = ({ userId }: { userId: ObjectId | string }) => {
       await createThread({
         thread: values.thread,
         userId: userId,
-        commnunity: "none",
+        community: organization && organization.id,
         path: pathname,
       });
-      toast('😎 Thread created', { autoClose: 1500, type: 'success', position:'bottom-right' })
+      toast("😎 Thread created", {
+        autoClose: 1500,
+        type: "success",
+        position: "bottom-right",
+      });
       router.push("/");
     } catch (error) {
       console.error(error, "error");
-      toast('Obs... Something went wrong, please try again.', { autoClose: 5000, type: 'error', position:'bottom-right' })
+      toast("Obs... Something went wrong, please try again.", {
+        autoClose: 5000,
+        type: "error",
+        position: "bottom-right",
+      });
     }
   };
 

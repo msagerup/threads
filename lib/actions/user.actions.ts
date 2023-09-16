@@ -5,6 +5,7 @@ import { connectToDB } from "../mongoose";
 import { Thread as ThreadType, userFormData } from "@/types";
 import { SortOrder } from "mongoose";
 import Thread from "../models/thread.model";
+import Community from '../models/community.model';
 
 export async function updateUser(
   userId: string,
@@ -40,7 +41,10 @@ export async function updateUser(
 export async function fetchUser(id: string) {
   try {
     await connectToDB();
-    return await User.findOne({ id });
+    return await User.findOne({ id }).populate({
+      path: "communities",
+      model: Community,
+    });
   } catch (error: any) {
     throw new Error(`Error fetching user: ${error.message}`);
   }

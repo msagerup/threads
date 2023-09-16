@@ -5,27 +5,43 @@ import Thread from "../models/thread.model";
 import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 import { revalidatePath } from "next/cache";
+import Community from "../models/community.model";
 
-interface createThreadValues {
+interface createThreadProps {
   thread: string;
   userId: ObjectId | string;
-  commnunity: string;
+  communityId: string | null | undefined;
   path: string;
 }
 
-export async function createThread(values: createThreadValues) {
-  const { thread, userId, commnunity, path } = values;
+export async function createThread(values: createThreadProps) {
+  const { thread, userId, communityId, path } = values;
+
+  console.log('communityId', communityId)
   try {
     await connectToDB();
+
+    const communityIdObject = await Community.findOne(
+      { id: communityId },
+      { _id: 1 }
+    );
+
     const createdThread = await Thread.create({
       text: thread,
       author: userId,
-      commnunity,
+      community: communityIdObject ? communityIdObject._id : null,
     });
     await User.findOneAndUpdate(
       { _id: userId },
       { $push: { threads: createdThread._id } }
     );
+
+    if (communityIdObject) {
+      // Update Community model
+      await Community.findByIdAndUpdate(communityIdObject, {
+        $push: { threads: createdThread._id },
+      });
+    }
 
     revalidatePath(path);
   } catch (error: any) {
@@ -47,22 +63,27 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20) {
       .sort({ createdAt: "desc" })
       .skip(offset)
       .limit(pageSize)
-      .populate({ path: "author", model: User })
-      .populate({
-        path: "replies",
-        model: Thread,
-        populate: {
-          path: "author",
-          model: User,
-          select: "_id name username profile_photo",
+
+      .populate([
+        { path: "author", model: User },
+        {
+          path: "replies",
+          model: Thread,
+          populate: {
+            path: "author",
+            model: User,
+            select: "_id name username profile_photo",
+          },
         },
-      });
+        { path: "community", model: Community },
+      ]);
 
     const totalThreadsCount = await Thread.countDocuments({
       parentId: { $in: [null, undefined] },
     });
 
     const threads = await threadsQuery.exec();
+
     const isNext = totalThreadsCount > offset + threads.length;
 
     return { threads, isNext };
@@ -109,8 +130,10 @@ export async function fetchThreadById(threadId: string) {
 export async function fetchThreadByUserId(userId: string) {
   try {
     await connectToDB();
-    const threads = await Thread.find({ author: userId })
-    .populate([{ path: "author", model: User }, { path: "replies", model: Thread }])
+    const threads = await Thread.find({ author: userId }).populate([
+      { path: "author", model: User, populate: { path: "communities", model: Community } },
+      { path: "replies", model: Thread },
+    ]);
     return threads;
   } catch (error: any) {
     throw new Error(
@@ -118,6 +141,41 @@ export async function fetchThreadByUserId(userId: string) {
     );
   }
 }
+
+// export async function fetchThreadByUserId(userId: string) {
+
+
+
+//   try {
+//     connectToDB();
+
+//     // Find all threads authored by the user with the given userId
+//     const threads = await User.find({ _id: userId }).populate({
+//       path: "threads",
+//       model: Thread,
+//       populate: [
+//         {
+//           path: "community",
+//           model: Community,
+//           select: "name id profile_photo _id", // Select the "name" and "_id" fields from the "Community" model
+//         },
+//         {
+//           path: "replies",
+//           model: Thread,
+//           populate: {
+//             path: "author",
+//             model: User,
+//           },
+//         },
+//       ],
+//     });
+
+//     return threads;
+//   } catch (error) {
+//     console.error("Error fetching user threads:", error);
+//     throw error;
+//   }
+// }
 
 export async function addCommentToThread({
   threadId,
