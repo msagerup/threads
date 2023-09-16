@@ -35,7 +35,7 @@ export function Share({link} : {link: string}) {
             </Label>
             <Input
               id="link"
-              defaultValue={`https://threads-nine-orpin.vercel.app/${link}`}
+              defaultValue={`https://threads-nine-orpin.vercel.app${link}`}
               readOnly
               className="h-9 text-gray-1"
             />
