@@ -32,17 +32,17 @@ const ThreadCard = ({
   thread,
   isComment,
   hidePreview,
+  isLeadThread,
 }: {
   thread: Thread;
   isComment: boolean;
   hidePreview?: boolean;
+  isLeadThread?: boolean;
 }) => {
   //Constants
   const { text, id, author, replies, updatedAt, createdAt } = thread;
 
   const socialImageLinks = renderSocialLinks(id);
-
-  // console.log('replies', replies )
 
   return (
     <article
@@ -72,6 +72,7 @@ const ThreadCard = ({
                 {author?.name}
               </h4>
             </Link>
+            <p className='text-subtle-medium text-gray-1 mt-0.5'>@{author?.username}</p>
             <p className='mt-2 text-small-regular text-light-2'>{text}</p>
             <div className={`${isComment && "mb-7"} mt-5 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
@@ -80,13 +81,16 @@ const ThreadCard = ({
               </div>
               {/* Bleh... this is not very readable..TODO: refactor..  */}
               {hidePreview ? (
-                replies.length > 0 && (
+                replies.length > 0 &&
+                (isLeadThread ? (
+                  ""
+                ) : (
                   <Link href={`/thread/${id}`}>
                     <p className='mt-1 text-subtle-medium text-gray-1'>{`${
                       replies.length
-                    } ${replies.length >= 1 ? "reply" : "replies"} `}</p>
+                    } ${replies.length >= 2 ? "replies" : "reply"} `}</p>
                   </Link>
-                )
+                ))
               ) : (
                 <RepliesPreview replies={replies} />
               )}

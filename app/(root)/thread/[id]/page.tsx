@@ -26,7 +26,7 @@ const ThreadDetails = async ({
   return (
     <section className='relative'>
       <div>
-        <ThreadCard key={thread._id} thread={thread} hidePreview={true} />
+        <ThreadCard key={thread._id} thread={thread} hidePreview={true} isLeadThread={true}/>
       </div>
 
       <div className='mt-7'>

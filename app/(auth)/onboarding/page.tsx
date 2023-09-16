@@ -9,7 +9,6 @@ async function Page() {
   if (!user) {
     redirect("/sign-up");
   }
-  console.log('USER', user)
 
   const userInfo = await fetchUser(user.id);
 
