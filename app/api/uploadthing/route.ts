@@ -1,5 +1,5 @@
-export const runtime = 'edge'; // 'nodejs' is the default
-export const preferredRegion = 'fra1'; // Frankfurt, Germany
+// export const runtime = 'edge'; // 'nodejs' is the default
+// export const preferredRegion = 'fra1'; // Frankfurt, Germany
 
 import { createNextRouteHandler } from "uploadthing/next";
  

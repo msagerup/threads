@@ -4,17 +4,12 @@
 
 // Resource: https://docs.svix.com/receiving/verifying-payloads/why
 // It's a good practice to verify webhooks. Above article shows why we should do it
-
-export const runtime = 'edge'; // 'nodejs' is the default
-export const preferredRegion = 'fra1'; // Frankfurt, Germany
-
-
 import { Webhook, WebhookRequiredHeaders } from "svix";
 import { headers } from "next/headers";
 
 import { IncomingHttpHeaders } from "http";
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import {
   addMemberToCommunity,
   createCommunity,
@@ -39,8 +34,7 @@ type Event = {
   type: EventType;
 };
 
-
-export const POST = async (request: NextRequest) => {
+export const POST = async (request: Request) => {
   const payload = await request.json();
   const header = headers();
 
@@ -74,7 +68,7 @@ export const POST = async (request: NextRequest) => {
     const { id, name, slug, logo_url, image_url, created_by } =
       evnt?.data ?? {};
 
-    try {           
+    try {
       // @ts-ignore
       await createCommunity(
         // @ts-ignore
