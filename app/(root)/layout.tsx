@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
+import { Analytics } from '@vercel/analytics/react';
 import TopBar from "@/components/shared/TopBar";
 import LeftsideBar from "@/components/shared/LeftSideBar";
 import RightSideBar from "@/components/shared/RightBar";
@@ -38,6 +38,7 @@ export default function RootLayout({
             <RightSideBar />
           </main>
           <BottomBar />
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
