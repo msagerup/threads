@@ -7,7 +7,8 @@ const Spinner = () => {
         width={60}
         alt='loading'
         src={"/assets/processing.png"}
-        unoptimized={true} 
+        unoptimized={true}
+        priority={true}
       />
     </div>
   );
