@@ -18,7 +18,7 @@ export default function AuthLayout({
   return (
     <ClerkProvider>
       <html lang='en'>
-        <body className={`${inter.className} bg-dark-1`}>
+        <body className={`${inter.className} bg-dark-1`} suppressHydrationWarning={true}>
           <div className='w-full flex justify-center items-center min-h-screen'>
             {children}
           </div>

@@ -18,8 +18,8 @@ const Profile = async ({ params }: { params: { id: string } }) => {
   }
   const profileData: userData = await fetchUser(id);
 
-  if (!profileData) {
-    return null;
+  if (!profileData?.onboarded) {
+    redirect("/onboarding");
   }
 
   return (

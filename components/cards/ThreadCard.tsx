@@ -42,8 +42,6 @@ const ThreadCard = ({
 }) => {
   //Constants
   const { text, id, author, community, replies,threads,  updatedAt, createdAt } = thread;
-
-
   const socialImageLinks = renderSocialLinks(id);
 
   const renderReplies = () => {
@@ -68,8 +66,6 @@ const ThreadCard = ({
       </Link>
     );
   };
-
- 
 
   return (
     <article

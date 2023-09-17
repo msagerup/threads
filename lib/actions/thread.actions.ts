@@ -16,8 +16,6 @@ interface createThreadProps {
 
 export async function createThread(values: createThreadProps) {
   const { thread, userId, communityId, path } = values;
-
-  console.log('communityId', communityId)
   try {
     await connectToDB();
 

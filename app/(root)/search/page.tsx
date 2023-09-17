@@ -1,28 +1,24 @@
 import UserCard from '@/components/cards/UserCard';
 import { fetchUser, fetchUsers } from "@/lib/actions/user.actions";
 import { userData } from "@/types";
-import { currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 const Search = async () => {
-  const user = await currentUser();
 
-  if (!user) {
+  const {userId} = auth()
+
+  if (!userId) {
     redirect("/sign-in");
-  }
-  const userInfo: userData = await fetchUser(user.id);
-
-  if (!userInfo?.onboarded) {
-    redirect("/onboarding");
   }
 
   const searchResult = await fetchUsers({
-    userId: userInfo.id,
+    userId: userId,
     searchString: "",
     pageNumber: 1,
     pageSize: 10,
   });
-
+  
 
   return (
     <section>
@@ -33,7 +29,7 @@ const Search = async () => {
         ) : (
           <>
             {searchResult.query.map((user) => (
-              <UserCard key={user._id.toString()} user={user} />
+              <UserCard key={user.id} user={user} />
             ))}
           </>
         )}
