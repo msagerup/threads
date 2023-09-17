@@ -1,22 +1,29 @@
 import ProfileHeader from "@/components/shared/ProfileHeader";
+import Spinner from '@/components/shared/Spinner';
 import ThreadsTab from "@/components/shared/ThreadsTab";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { profileTabs } from "@/constants";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { userData } from "@/types";
 import { currentUser } from "@clerk/nextjs";
+import dynamic from 'next/dynamic';
 import Image from "next/image";
+
+const DynamicHeader = dynamic(() => import('@/components/shared/ProfileHeader'), { loading: () => <Spinner /> })  
 
 import { redirect } from "next/navigation";
 
 const Profile = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
-  const user = await currentUser();
+
+  const [user, profileData] = await Promise.all([
+    currentUser(),
+    fetchUser(id),
+  ]);
 
   if (!user) {
     redirect("/sign-in");
   }
-  const profileData: userData = await fetchUser(id);
 
   if (!profileData?.onboarded) {
     redirect("/onboarding");
@@ -24,7 +31,7 @@ const Profile = async ({ params }: { params: { id: string } }) => {
 
   return (
     <section>
-      <ProfileHeader loggedInUserId={user.id} profile={profileData} />
+      <DynamicHeader loggedInUserId={user.id} profile={profileData} />
       <div className='mt-9'>
         <Tabs defaultValue='threads' className='w-full'>
           <TabsList className='tab'>

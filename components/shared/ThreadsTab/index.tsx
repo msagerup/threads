@@ -11,16 +11,15 @@ const ThreadsTab = async ({
 }) => {
   const threads = await fetchThreadByUserId(profileId);
 
-
   if (!threads) {
     return null;
   }
 
   return (
     <section className='mt-9 flex flex-col gap-10'>
-      {threads?.map((thread) => (
-        <ThreadCard key={thread.id} thread={thread} />
-      ))}
+      {threads?.map((thread) => {
+        return <ThreadCard key={thread.id} thread={thread} />;
+      })}
     </section>
   );
 };

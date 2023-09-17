@@ -44,6 +44,8 @@ const ThreadCard = ({
   const { text, id, author, community, replies,threads,  updatedAt, createdAt } = thread;
   const socialImageLinks = renderSocialLinks(id);
 
+  console.log('TheadCard', thread)
+
   const renderReplies = () => {
     // Disables preview popup within preview pop-up's
     if (hidePreview) {
@@ -81,7 +83,7 @@ const ThreadCard = ({
               href={`/profile/${author?.id}`}
             >
               <Image
-                src={author?.profile_photo}
+                src={author?.profile_photo ? author?.profile_photo : '/assets/profile.svg'}
                 alt='profile photo'
                 fill
                 className='cursor-pointer rounded-md'
@@ -95,7 +97,7 @@ const ThreadCard = ({
                 {author?.name}
               </h4>
             </Link>
-            <p className='text-subtle-medium text-gray-1 mt-0.5'>@{author.username}</p>
+            <p className='text-subtle-medium text-gray-1 mt-0.5'>@{author?.username}</p>
             <p className='mt-2 text-small-regular text-light-2'>{text}</p>
             <div className={`${isComment && "mb-7"} mt-5 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
@@ -114,13 +116,13 @@ const ThreadCard = ({
             {formatDateString(createdAt)}
             - {community.name} Community
             </p>
-            <Image
+            {/* <Image
             className='ml-1 rounded-md object-cover'
-              src={community.profile_photo}
+              src={community?.profile_photo}
               alt='community photo'
               width={14}
               height={14}
-              />
+              /> */}
             </Link>
         )
 }

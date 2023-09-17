@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/hover-card";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import ThreadCard from "@/components/cards/ThreadCard";
-const RepliesPreview = ({ replies }: { replies: Thread[] }) => {
+const RepliesPreview = async ({ replies }: { replies: Thread[] }) => {
 
   if(!replies?.length) return null
 
@@ -22,7 +22,7 @@ const RepliesPreview = ({ replies }: { replies: Thread[] }) => {
           <ScrollArea className="h-[200px]">
           {replies?.map((reply) => {
             return (
-              <ThreadCard key={reply.id} thread={reply} hidePreview={true} />
+              <ThreadCard key={reply.id} thread={reply} hidePreview={true} /> 
             );
           })}
          </ScrollArea>

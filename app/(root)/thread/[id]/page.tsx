@@ -3,7 +3,7 @@ import Comment from "@/components/forms/CommentForm";
 import { fetchThreadById } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { Thread } from "@/types";
-import { currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 const ThreadDetails = async ({
@@ -11,22 +11,23 @@ const ThreadDetails = async ({
 }: {
   params: { id: string };
 }) => {
-  const user = await currentUser();
-  if (!user) {
+  const { userId } = auth();
+  if (!userId) {
     redirect("/sign-in");
   }
-  const userInfo = await fetchUser(user.id);
+
+  const [userInfo, thread] = await Promise.all([
+    fetchUser(userId),
+    fetchThreadById(id),
+  ]);
   if (!userInfo?.onboarded) {
     redirect("/onboarding");
   }
 
-  // get thread by id
-  const thread: Thread = await fetchThreadById(id);
-
   return (
     <section className='relative'>
       <div>
-        <ThreadCard key={thread._id} thread={thread} hidePreview={true} isLeadThread={true}/>
+        <ThreadCard thread={thread} hidePreview={true} isLeadThread={true} />
       </div>
 
       <div className='mt-7'>
@@ -37,8 +38,8 @@ const ThreadDetails = async ({
         />
       </div>
       <div className='mt-10'>
-        {thread.replies.map((reply) => {
-          return <ThreadCard key={reply._id} thread={reply} isComment={true}  />;
+        {thread.replies.map((reply: Thread) => {
+          return <ThreadCard key={reply._id} thread={reply} isComment={true} />;
         })}
       </div>
     </section>
