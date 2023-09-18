@@ -44,7 +44,7 @@ const ThreadCard = ({
   const { text, id, author, community, replies,threads,  updatedAt, createdAt } = thread;
   const socialImageLinks = renderSocialLinks(id);
 
-  console.log('TheadCard', thread)
+
 
   const renderReplies = () => {
     // Disables preview popup within preview pop-up's

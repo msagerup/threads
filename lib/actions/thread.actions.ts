@@ -76,7 +76,7 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20) {
         { path: "community", model: Community },
       ]);
 
-    console.log("threadsQuery", threadsQuery);
+    // console.log("threadsQuery", threadsQuery);
 
     const totalThreadsCount = await Thread.countDocuments({
       parentId: { $in: [null, undefined] },
@@ -142,8 +142,6 @@ export async function fetchThreadByUserId(userId: string) {
         populate: [{ path: "author", model: User }],
       },
     ]);
-
-    console.log("threads", threads);    
 
     return threads;
   } catch (error: any) {

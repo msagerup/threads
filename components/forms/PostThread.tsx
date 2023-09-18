@@ -18,19 +18,20 @@ import { createThread } from "@/lib/actions/thread.actions";
 import { ObjectId } from "mongoose";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { use } from "react";
 import { useOrganization } from "@clerk/nextjs";
 
 const PostThread = ({ userId }: { userId: ObjectId | string }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { organization } = useOrganization();
+  const  organization  = useOrganization();
   const form = useForm<z.infer<typeof commentValidation>>({
     resolver: zodResolver(commentValidation),
     defaultValues: {
       thread: "",
     },
   });
+
+  console.log(organization, 'ORG')
 
   const onSubmit = async (values: z.infer<typeof commentValidation>) => {
     try {
