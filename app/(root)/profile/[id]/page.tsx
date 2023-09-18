@@ -4,7 +4,6 @@ import ThreadsTab from "@/components/shared/ThreadsTab";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { profileTabs } from "@/constants";
 import { fetchUser } from "@/lib/actions/user.actions";
-import { userData } from "@/types";
 import { currentUser } from "@clerk/nextjs";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -29,7 +28,6 @@ const Profile = async ({ params }: { params: { id: string } }) => {
   if (!profileData?.onboarded) {
     redirect("/onboarding");
   }
-
 
   return (
     <Suspense fallback={<Spinner />}>

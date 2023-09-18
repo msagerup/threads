@@ -28,7 +28,7 @@ const LeftsideBar = () => {
             <Link
               href={link.route}
               key={link.label}
-              className={`leftsidebar_link ${isActive && "bg-primary-500"}`}
+              className={`leftsidebar_link ${isActive && "bg-zinc-700"}`}
             >
               <Image
                 src={link.imgURL}
@@ -63,3 +63,5 @@ const LeftsideBar = () => {
 };
 
 export default LeftsideBar;
+
+// #0d0d0d

@@ -207,7 +207,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
           )}
         />
 
-        <Button type='submit' className='bg-primary-500'>
+        <Button type='submit' className='bg-zinc-700'>
           {isLoading ? "Loading..." : btnTitle}
         </Button>
       </form>

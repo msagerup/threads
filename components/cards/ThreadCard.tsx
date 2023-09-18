@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import Share from "../shared/Share";
 import ProfileHeader from "../shared/ProfileHeader";
 import RepliesPreview from "../shared/RepliesPreview";
-import { formatDateString } from '@/lib/utils';
+import { formatDateString } from "@/lib/utils";
 
 const renderSocialLinks = (id: string): ReactNode => {
   // TODO: implement other social links
@@ -41,17 +41,24 @@ const ThreadCard = ({
   isLeadThread?: boolean;
 }) => {
   //Constants
-  const { text, id, author, community, replies,threads,  updatedAt, createdAt } = thread;
+  const {
+    text,
+    id,
+    author,
+    community,
+    replies,
+    threads,
+    updatedAt,
+    createdAt,
+  } = thread;
   const socialImageLinks = renderSocialLinks(id);
-
-
 
   const renderReplies = () => {
     // Disables preview popup within preview pop-up's
     if (hidePreview) {
       return null;
     }
-  
+
     if (replies.length === 0) {
       return null;
     }
@@ -59,7 +66,7 @@ const ThreadCard = ({
     if (isLeadThread) {
       return null;
     }
-  
+
     return (
       <Link href={`/thread/${id}`}>
         <p className='mt-1 text-subtle-medium text-gray-1'>
@@ -83,7 +90,11 @@ const ThreadCard = ({
               href={`/profile/${author?.id}`}
             >
               <Image
-                src={author?.profile_photo ? author?.profile_photo : '/assets/profile.svg'}
+                src={
+                  author?.profile_photo
+                    ? author?.profile_photo
+                    : "/assets/profile.svg"
+                }
                 alt='profile photo'
                 fill
                 className='cursor-pointer rounded-md'
@@ -97,36 +108,44 @@ const ThreadCard = ({
                 {author?.name}
               </h4>
             </Link>
-            <p className='text-subtle-medium text-gray-1 mt-0.5'>@{author?.username}</p>
-            <p className='mt-2 text-small-regular text-light-2'>{text}</p>
+            <p className='text-subtle-medium text-gray-1 mt-0.5'>
+              @{author?.username}
+            </p>
+            <p className='mt-5 text-small-regular text-light-2'>{text}</p>
+
             <div className={`${isComment && "mb-7"} mt-5 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
                 {socialImageLinks}
                 <Share link={`/thread/${id}`} />
               </div>
-              { hidePreview ? renderReplies() : <RepliesPreview replies={replies} /> }
             </div>
           </div>
         </div>
-        {/* TODO: Delete thread */}
-        {/* TODO: show comment logo */}
-        {!isComment && community && (
-          <Link className='mt-5 flex items-center' href={`/community/${community.id}`}>
-            <p className='text-subtle-medium text-gray-1'>  
-            {formatDateString(createdAt)}
-            - {community.name} Community
-            </p>
-            {/* <Image
-            className='ml-1 rounded-md object-cover'
+        <p className=' mt-5 text-subtle-medium text-gray-1'>
+          {formatDateString(createdAt)}
+        </p>
+      </div>
+      {hidePreview ? renderReplies() : <RepliesPreview replies={replies} />}
+
+      {!isComment && community && (
+        <Link
+          className='mt-5 flex items-center'
+          href={`/community/${community?.id}`}
+        >
+          <p className='text-subtle-medium text-gray-1'>
+            {formatDateString(createdAt)}- {community?.name} Community
+          </p>
+          {community?.profile_photo && (
+            <Image
+              className='ml-1 rounded-md object-cover'
               src={community?.profile_photo}
               alt='community photo'
               width={14}
               height={14}
-              /> */}
-            </Link>
-        )
-}
-      </div>
+            />
+          )}
+        </Link>
+      )}
     </article>
   );
 };

@@ -38,7 +38,7 @@ const PostThread = ({ userId }: { userId: ObjectId | string }) => {
       await createThread({
         thread: values.thread,
         userId: userId,
-        community: organization && organization.id,
+        communityId: organization && organization.id,
         path: pathname,
       });
       toast("😎 Thread created", {
@@ -84,7 +84,7 @@ const PostThread = ({ userId }: { userId: ObjectId | string }) => {
             </FormItem>
           )}
         />
-        <Button type='submit' className='bg-primary-500'>
+        <Button type='submit' className='bg-zinc-700'>
           Create thread
         </Button>
       </form>
