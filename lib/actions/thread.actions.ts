@@ -76,7 +76,7 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20) {
         { path: "community", model: Community },
       ]);
 
-      console.log('threadsQuery', threadsQuery)
+    console.log("threadsQuery", threadsQuery);
 
     const totalThreadsCount = await Thread.countDocuments({
       parentId: { $in: [null, undefined] },
@@ -131,9 +131,20 @@ export async function fetchThreadByUserId(userId: string) {
   try {
     await connectToDB();
     const threads = await Thread.find({ author: userId }).populate([
-      { path: "author", model: User, populate: { path: "communities", model: Community } },
-      { path: "replies", model: Thread },
+      {
+        path: "author",
+        model: User,
+        populate: { path: "communities", model: Community },
+      },
+      {
+        path: "replies",
+        model: Thread,
+        populate: [{ path: "author", model: User }],
+      },
     ]);
+
+    console.log("threads", threads);    
+
     return threads;
   } catch (error: any) {
     throw new Error(
@@ -143,8 +154,6 @@ export async function fetchThreadByUserId(userId: string) {
 }
 
 // export async function fetchThreadByUserId(userId: string) {
-
-
 
 //   try {
 //     connectToDB();

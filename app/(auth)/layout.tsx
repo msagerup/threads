@@ -21,6 +21,7 @@ export default function AuthLayout({
         baseTheme: dark,
       }}
     >
+      
       <html lang='en'>
         <body
           className={`${inter.className} bg-dark-1`}
