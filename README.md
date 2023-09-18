@@ -16,6 +16,11 @@ https://threads-nine-orpin.vercel.app/
 ##### Chrome Lightsail:
 ![image](https://github.com/msagerup/threads/assets/23620566/42a11425-2940-48b5-94ac-c113acb36b30)
 
+##### Test with load, 25 clients loading the page for minutes, this is the result in response times:
+
+![image](https://github.com/msagerup/threads/assets/23620566/1aceda52-3bda-4c70-a2e3-ac4f848fdf10)
+
+
 
 
 ### UI library used :
