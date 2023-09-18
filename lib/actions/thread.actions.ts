@@ -74,7 +74,7 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20) {
           },
         },
         { path: "community", model: Community },
-      ]);s
+      ]);
 
     const totalThreadsCount = await Thread.countDocuments({
       parentId: { $in: [null, undefined] },
