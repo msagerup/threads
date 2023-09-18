@@ -31,8 +31,6 @@ const PostThread = ({ userId }: { userId: ObjectId | string }) => {
     },
   });
 
-  console.log(organization, 'ORG')
-
   const onSubmit = async (values: z.infer<typeof commentValidation>) => {
     try {
       await createThread({

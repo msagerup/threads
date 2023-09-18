@@ -25,16 +25,14 @@ const RepliesPreview = async ({ replies }: { replies: Thread[] }) => {
                   height={24}
                   className={`${
                     index !== 0 && "-ml-5"
-                  } rounded-full object-cover`}
+                  } rounded-md object-cover`}
                 />
               ))}
 
-              {/* <Link href={`/thread/${id}`}> */}
-                <p className='mt-1 text-subtle-medium text-gray-1'>
-                  {replies.length}
-                  {` ${replies.length > 1 ? "replies" : "reply"}`}
-                </p>
-              {/* </Link> */}
+              <p className='mt-1 text-subtle-medium text-gray-1'>
+                {replies.length}
+                {` ${replies.length > 1 ? "replies" : "reply"}`}
+              </p>
             </div>
           )}
         </HoverCardTrigger>

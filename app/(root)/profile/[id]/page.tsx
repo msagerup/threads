@@ -29,6 +29,8 @@ const Profile = async ({ params }: { params: { id: string } }) => {
     redirect("/onboarding");
   }
 
+
+  
   return (
     <Suspense fallback={<Spinner />}>
       <section>

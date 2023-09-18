@@ -100,7 +100,7 @@ const ThreadCard = ({
                 className='cursor-pointer rounded-md'
               />
             </Link>
-            <div className='thread-card_bar' />
+            {replies.length !== 0 && <div className='thread-card_bar' />}
           </div>
           <div className='flex w-full flex-col'>
             <Link className='w-fit' href={`/profile/${author?.id}`}>
@@ -111,9 +111,11 @@ const ThreadCard = ({
             <p className='text-subtle-medium text-gray-1 mt-0.5'>
               @{author?.username}
             </p>
-            <p className='mt-5 text-small-regular text-light-2'>{text}</p>
+            <p className='mt-5 text-small-regular text-light-2'>
+              {text}
+            </p>
 
-            <div className={`${isComment && "mb-7"} mt-5 flex flex-col gap-3`}>
+            <div className={`${isComment && "mb-7"} mt-3 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
                 {socialImageLinks}
                 <Share link={`/thread/${id}`} />
