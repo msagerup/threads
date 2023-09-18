@@ -11,7 +11,8 @@ https://threads-nine-orpin.vercel.app/
 
 ## Speed tests
 ##### Varzel:
-![image](https://github.com/msagerup/threads/assets/23620566/1188b2e4-0941-464d-a01d-ebd64479cbff)
+![image](https://github.com/msagerup/threads/assets/23620566/ebf9ee82-dcfe-4cb0-8ebb-f00ed98e39d0)
+
 
 ##### Chrome Lightsail:
 ![image](https://github.com/msagerup/threads/assets/23620566/42a11425-2940-48b5-94ac-c113acb36b30)
