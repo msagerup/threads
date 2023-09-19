@@ -85,6 +85,7 @@ const ThreadCard = ({
       <div className='flex items-start justify-between'>
         <div className='flex w-full flex-1 flex-row gap-4'>
           <div className='flex flex-col items-center'>
+         
             <Link
               className='relative h-11 w-11'
               href={`/profile/${author?.id}`}
@@ -109,8 +110,11 @@ const ThreadCard = ({
               </h4>
             </Link>
             <p className='text-subtle-medium text-gray-1 mt-0.5'>
-              @{author?.username}
+              @{author?.username}  <span className='visible md:invisible'>- {formatDateString(createdAt)}</span>
             </p>
+            <p className='text-subtle-medium text-gray-1'>
+         
+        </p>
             <p className='mt-5 text-small-regular text-light-2'>
               {text}
             </p>
@@ -123,7 +127,7 @@ const ThreadCard = ({
             </div>
           </div>
         </div>
-        <p className=' mt-5 text-subtle-medium text-gray-1'>
+        <p className=' mt-5 text-subtle-medium text-gray-1 max-md:hidden '>
           {formatDateString(createdAt)}
         </p>
       </div>
