@@ -7,6 +7,8 @@ import ProfileHeader from "../shared/ProfileHeader";
 import RepliesPreview from "../shared/RepliesPreview";
 import { formatDateString } from "@/lib/utils";
 
+
+
 const renderSocialLinks = (id: string): ReactNode => {
   // TODO: implement other social links
   return [
@@ -41,16 +43,7 @@ const ThreadCard = ({
   isLeadThread?: boolean;
 }) => {
   //Constants
-  const {
-    text,
-    id,
-    author,
-    community,
-    replies,
-    threads,
-    updatedAt,
-    createdAt,
-  } = thread;
+  const { text, id, author, community, replies, updatedAt, createdAt } = thread;
   const socialImageLinks = renderSocialLinks(id);
 
   const renderReplies = () => {
@@ -85,7 +78,6 @@ const ThreadCard = ({
       <div className='flex items-start justify-between'>
         <div className='flex w-full flex-1 flex-row gap-4'>
           <div className='flex flex-col items-center'>
-         
             <Link
               className='relative h-11 w-11'
               href={`/profile/${author?.id}`}
@@ -101,7 +93,7 @@ const ThreadCard = ({
                 className='cursor-pointer rounded-md'
               />
             </Link>
-            {replies.length !== 0 && <div className='thread-card_bar' />}
+            { (replies.length !== 0 || isComment) && <div className='thread-card_bar' /> }
           </div>
           <div className='flex w-full flex-col'>
             <Link className='w-fit' href={`/profile/${author?.id}`}>
@@ -110,16 +102,15 @@ const ThreadCard = ({
               </h4>
             </Link>
             <p className='text-subtle-medium text-gray-1 mt-0.5'>
-              @{author?.username}  <span className='visible md:invisible'>- {formatDateString(createdAt)}</span>
+              @{author?.username}{" "}
+              <span className='visible md:invisible'>
+                - {formatDateString(createdAt)}
+              </span>
             </p>
-            <p className='text-subtle-medium text-gray-1'>
-         
-        </p>
-            <p className='mt-5 text-small-regular text-light-2'>
-              {text}
-            </p>
+            <p className='text-subtle-medium text-gray-1'></p>
+            <p className='mt-5 text-small-regular text-light-2'>{text}</p>
 
-            <div className={`${isComment && "mb-7"} mt-3 flex flex-col gap-3`}>
+            <div className={`${isComment && "mb-5"} mt-3 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
                 {socialImageLinks}
                 <Share link={`/thread/${id}`} />
@@ -131,7 +122,7 @@ const ThreadCard = ({
           {formatDateString(createdAt)}
         </p>
       </div>
-      {hidePreview ? renderReplies() : <RepliesPreview replies={replies} />}
+      {hidePreview ? renderReplies() : <RepliesPreview replies={replies} id={id} />}
 
       {!isComment && community && (
         <Link

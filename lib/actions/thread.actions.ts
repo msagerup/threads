@@ -62,7 +62,6 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20) {
       .sort({ createdAt: "desc" })
       .skip(offset)
       .limit(pageSize)
-
       .populate([
         { path: "author", model: User },
         {
@@ -71,7 +70,7 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20) {
           populate: {
             path: "author",
             model: User,
-            select: "_id name username profile_photo",
+            select: "_id id name username profile_photo",
           },
         },
         { path: "community", model: Community },
