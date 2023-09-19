@@ -14,6 +14,7 @@ interface createThreadProps {
   path: string;
 }
 
+
 export async function createThread(values: createThreadProps) {
   const { thread, userId, communityId, path } = values;
   try {

@@ -8,9 +8,9 @@ import { Suspense } from "react";
 const Search = async () => {
   const { userId } = auth();
 
-  if (!userId) {
-    redirect("/sign-in");
-  }
+ if(!userId) {  
+   redirect("/sign-in");
+ }
 
   const searchResult = await fetchUsers({
     userId: userId,

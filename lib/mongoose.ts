@@ -1,29 +1,44 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
+interface MongooseGlobal extends NodeJS.Global {
+  mongoose: any;
+}
 
-// DB Connection ready state
-// 0 = disconnected
-// 1 = connected
-// 2 = connecting
-// 3 = disconnecting
-// 99 = uninitialized
+declare var global: MongooseGlobal;
 
-let DBConnectionState: mongoose.ConnectionStates = 0;
+declare global {
+  namespace NodeJS {
+    interface Global {
+      mongoose: MongooseGlobal;
+    }
+  }
+}
+
+
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { connection: null, promise: null };
+}
 
 export const connectToDB = async () => {
-  if (DBConnectionState === 1) {
+  if (cached.connection) {
     console.info("=> using existing database connection");
-    return Promise.resolve();
+    return cached.connection;
   }
 
-  console.info("=> using new database connection");
-  try {
-    const db = await mongoose.connect(process.env.MONGODB_URI, {
+  if (!cached.promise) {
+    console.info("=> using new database connection");
+    const opts = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    });
-    DBConnectionState = db.connections[0].readyState;
-  } catch (error) {
-    console.error("error connecting to db:", error);
-    DBConnectionState = 99;
+    };
+    cached.promise = mongoose
+      .connect(process.env.MONGODB_URI!, opts)
+      .then((mongoose) => {
+        return mongoose;
+      });
   }
+
+  cached.connection = await cached.promise;
+  return cached.connection;
 };

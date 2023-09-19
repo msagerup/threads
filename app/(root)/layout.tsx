@@ -10,12 +10,15 @@ import LeftsideBar from "@/components/shared/LeftSideBar";
 import RightSideBar from "@/components/shared/RightBar";
 import BottomBar from "@/components/shared/BottomBar";
 import { dark } from "@clerk/themes";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Threads",
   description: "A next.js 13 Meta Threads clone Application",
 };
+
+
 
 export default function RootLayout({
   children,
