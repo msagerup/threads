@@ -23,7 +23,7 @@ function CommunityCard({ id, name, username, imgUrl, bio, members }: Props) {
             src={imgUrl}
             alt='community_logo'
             fill
-            className='rounded-full object-cover'
+            className='rounded-md object-cover'
           />
         </Link>
 
@@ -38,24 +38,24 @@ function CommunityCard({ id, name, username, imgUrl, bio, members }: Props) {
       <p className='mt-4 text-subtle-medium text-gray-1'>{bio}</p>
 
       <div className='mt-5 flex flex-wrap items-center justify-between gap-3'>
-        {/* <Link href={`/communities/${id}`}> */}
-          <Button disabled size='sm' className='community-card_btn'>
+        <Link href={`/communities/${id}`}>
+          <Button size='sm' className='community-card_btn'>
             View
           </Button>
-        {/* </Link> */}
+        </Link>
 
-        {/* {members.length > 0 && (
+        {members.length > 0 && (
           <div className='flex items-center'>
             {members.map((member, index) => (
               <Image
                 key={index}
-                src={member.image}
+                src={member.profile_photo}
                 alt={`user_${index}`}
                 width={28}
                 height={28}
                 className={`${
                   index !== 0 && "-ml-2"
-                } rounded-full object-cover`}
+                } rounded-md object-cover`}
               />
             ))}
             {members.length > 3 && (
@@ -64,7 +64,7 @@ function CommunityCard({ id, name, username, imgUrl, bio, members }: Props) {
               </p>
             )}
           </div>
-        )} */}
+        )}
       </div>
     </article>
   );

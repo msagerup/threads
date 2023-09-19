@@ -13,6 +13,7 @@ export type userData = {
   profile_photo: string;
   onboarded?: boolean;
   threads: ObjectId[]
+  image?: string;
 };
 
 export type userFormData = {
