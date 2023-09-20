@@ -1,5 +1,6 @@
 import Spinner from "@/components/shared/Spinner";
 import { Button } from "@/components/ui/button";
+import { Separator } from '@/components/ui/separator';
 import { fetchUser, getNotifications } from "@/lib/actions/user.actions";
 import { Thread, userData } from "@/types";
 import { currentUser } from "@clerk/nextjs";
@@ -23,7 +24,13 @@ const Activity = async () => {
   }
   return (
     <section>
-      <h1 className='head-text mb-10'>Activity</h1>
+      <header className='mb-10'>
+        <h1 className='head-text'>Activity</h1>
+        <Separator className='separator' />
+        <div className='text-subtle-large text-gray-1 '>
+          Want to get more replies? Start posting! 🎉 
+        </div>
+      </header>
       <Suspense fallback={<Spinner />}>
         <section className='mt-10 flex flex-col gap-5'>
           {results.length === 0 ? (

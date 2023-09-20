@@ -17,8 +17,6 @@ const ThreadsTab = async ({
     ? await fetchCommunityPosts(profileId)
     : await fetchThreadByUserId(profileId);
 
-
-
   if (!threads || !Array.isArray(threads))
     return (
       <p className='!text-base-regular text-light-3 mt-10 '>

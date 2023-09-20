@@ -5,7 +5,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { commentValidation } from "@/lib/validations/comment";
@@ -66,9 +65,6 @@ const PostThread = ({ userId }: { userId: ObjectId | string }) => {
           name='thread'
           render={({ field }) => (
             <FormItem className='flex w-full flex-col gap-3'>
-              <FormLabel className='text-base-semibold text-light-2'>
-                What&apos;s on your mind?
-              </FormLabel>
               <FormControl className='no-focus border border-dark-4 bg-dark-3 text-light-2'>
                 <Textarea
                   rows={15}

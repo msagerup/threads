@@ -1,5 +1,6 @@
 //app/page.tsx
 import ThreadCard from "@/components/cards/ThreadCard";
+import { Separator } from '@/components/ui/separator';
 import { fetchThreads } from "@/lib/actions/thread.actions";
 
 
@@ -9,7 +10,8 @@ export default async function Home() {
       <section className='flex flex-col gap-10'>
         <div>
         <h1 className='head-text'>Threads</h1>
-        <div className='text-subtle-medium text-gray-1'>Where Every Post is a Stitch</div>
+        <Separator className='separator' />
+        <div className='text-subtle-large text-gray-1'>Where Every Post is a Stitch</div>
         </div>
         {results.threads.length === 0 ? (
           <p className='no-results'>No threads found</p>

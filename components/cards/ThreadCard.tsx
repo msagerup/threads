@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 import Share from "../shared/Share";
 import RepliesPreview from "../shared/RepliesPreview";
 import { formatDateString } from "@/lib/utils";
+import { Separator } from '../ui/separator';
 
 const renderSocialLinks = (id: string): ReactNode => {
   // TODO: implement other social links
@@ -110,8 +111,11 @@ const ThreadCard = ({
                 - {formatDateString(createdAt)}
               </span>
             </p>
+            
             <p className='text-subtle-medium text-gray-1'></p>
-            <p className='mt-5 text-small-regular text-light-2'>{text}</p>
+            <p className='mt-5 text-small-regular text-light-2'>
+              {text}
+            </p>
 
             <div className={`${isComment && "mb-5"} mt-3 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
