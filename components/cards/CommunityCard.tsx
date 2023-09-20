@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Button } from "../ui/button";
 
-interface Props {
+interface CommunityCardProps {
   id: string;
   name: string;
   username: string;
@@ -14,7 +14,7 @@ interface Props {
   }[];
 }
 
-function CommunityCard({ id, name, username, imgUrl, bio, members }: Props) {
+function CommunityCard({ id, name, username, imgUrl, bio, members }: CommunityCardProps) {
   return (
     <article className='community-card'>
       <div className='flex flex-wrap items-center gap-3'>

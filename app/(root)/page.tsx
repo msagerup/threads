@@ -1,15 +1,17 @@
 //app/page.tsx
 import ThreadCard from "@/components/cards/ThreadCard";
-import Spinner from "@/components/shared/Spinner";
 import { fetchThreads } from "@/lib/actions/thread.actions";
-import { Suspense } from "react";
+
 
 export default async function Home() {
   const results = await fetchThreads();
-
   return (
-    <Suspense fallback={<Spinner />}>
+
       <section className='mt-9 flex flex-col gap-10'>
+        <div>
+        <h1 className='head-text'>Threads</h1>
+        <div className='text-subtle-medium text-gray-1'>Where Every Post is a Stitch</div>
+        </div>
         {results.threads.length === 0 ? (
           <p className='no-results'>No threads found</p>
         ) : (
@@ -18,6 +20,6 @@ export default async function Home() {
           })
         )}
       </section>
-    </Suspense>
+    
   );
 }

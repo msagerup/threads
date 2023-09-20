@@ -20,7 +20,7 @@ export default async function CreateThread() {
 
   return (
     <>
-      <h1 className='head-text'>create thread</h1>
+      <h1 className='head-text'>Create thread</h1>
       <Suspense fallback={<Spinner />}>
         <PostThread userId={userInfo._id.toString()} />
       </Suspense>

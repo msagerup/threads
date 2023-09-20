@@ -42,9 +42,7 @@ export default function RootLayout({
                 <Suspense fallback={<Spinner />}>{children}</Suspense>
               </div>
             </section>
-            
               <RightSideBar />
-           
           </main>
           <BottomBar />
           <Analytics />

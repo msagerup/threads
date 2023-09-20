@@ -7,7 +7,10 @@ const SuggestedCommunities = async () => {
   if (!result) return <p className='no-result'>No Result</p>;
 
   return (
-    <section className='mt-9 flex flex-wrap gap-4'>
+    <section className='mt-8 flex flex-wrap gap-2'>
+      <header className='px-4'>
+        <h2 className='text-light-1'>Popular communities</h2>
+      </header>
       {result.communities.length === 0 ? (
         <p className='no-result'>No Result</p>
       ) : (
