@@ -6,8 +6,7 @@ import { fetchThreads } from "@/lib/actions/thread.actions";
 export default async function Home() {
   const results = await fetchThreads();
   return (
-
-      <section className='mt-9 flex flex-col gap-10'>
+      <section className='flex flex-col gap-10'>
         <div>
         <h1 className='head-text'>Threads</h1>
         <div className='text-subtle-medium text-gray-1'>Where Every Post is a Stitch</div>

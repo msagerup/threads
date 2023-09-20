@@ -18,12 +18,12 @@ const Search = async () => {
     pageNumber: 1,
     pageSize: 10,
   });
-
+ 
   return (
-    <section>
+    <section >
       <h1 className='head-text mb-10'>Search</h1>
       <Suspense fallback={<Spinner />}>
-        <div className='mt-14 flex flex-col gap-9'>
+        <div className='mt-9 flex flex-wrap gap-4'>
           {searchResult.query.length === 0 ? (
             <p className='!text-base-regular text-light-3'>No results found</p>
           ) : (
