@@ -1,13 +1,12 @@
+
+
 import { Thread } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 import Share from "../shared/Share";
-import ProfileHeader from "../shared/ProfileHeader";
 import RepliesPreview from "../shared/RepliesPreview";
 import { formatDateString } from "@/lib/utils";
-
-
 
 const renderSocialLinks = (id: string): ReactNode => {
   // TODO: implement other social links
@@ -36,7 +35,9 @@ const ThreadCard = ({
   isComment,
   hidePreview,
   isLeadThread,
+
 }: {
+  key: any;
   thread: Thread;
   isComment?: boolean;
   hidePreview?: boolean;
@@ -93,7 +94,9 @@ const ThreadCard = ({
                 className='cursor-pointer rounded-md'
               />
             </Link>
-            { (replies.length !== 0 || isComment) && <div className='thread-card_bar' /> }
+            {(replies.length !== 0 || isComment) && (
+              <div className='thread-card_bar' />
+            )}
           </div>
           <div className='flex w-full flex-col'>
             <Link className='w-fit' href={`/profile/${author?.id}`}>
@@ -122,8 +125,12 @@ const ThreadCard = ({
           {formatDateString(createdAt)}
         </p>
       </div>
-      {hidePreview ? renderReplies() : <RepliesPreview replies={replies} id={id} />}
-
+      {hidePreview && id ? (
+        renderReplies()
+      ) : (
+        <RepliesPreview replies={replies} id={id} /> 
+      )}
+      {/* 
       {!isComment && community && (
         <Link
           className='mt-5 flex items-center'
@@ -142,7 +149,7 @@ const ThreadCard = ({
             />
           )}
         </Link>
-      )}
+      )} */}
     </article>
   );
 };

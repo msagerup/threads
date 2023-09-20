@@ -51,13 +51,13 @@ export async function fetchUser(id: string) {
 }
 
 export async function fetchUsers({
-  userId,
+  userId="",
   searchString = "",
   pageNumber = 1,
   pageSize = 10,
   sortBy = "desc",
 }: {
-  userId: string;
+  userId?: string;
   searchString?: string;
   pageNumber?: number;
   pageSize?: number;
