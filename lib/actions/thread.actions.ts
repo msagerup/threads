@@ -7,6 +7,7 @@ import { connectToDB } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import Community from "../models/community.model";
 import { replyPopulateOptions } from "./helpers/poluateReplies";
+import { connect } from "http2";
 
 interface createThreadProps {
   thread: string;
@@ -113,6 +114,35 @@ export async function fetchThreadById(threadId: string) {
   } catch (error: any) {
     throw new Error(
       `Error fetching thread Id: => ${threadId}: ${error.message}`
+    );
+  }
+}
+
+export async function fetchThreadByParentId(parentId: string) {
+  try {
+    connectToDB();
+    const thread = await Thread.findById(parentId).populate({ path: "author", model: User })
+    .populate({
+      path: "replies",
+      model: Thread,
+      populate: [
+        {
+          path: "author",
+          model: User,
+          select: "_id id name username parentId profile_photo",
+        },
+        {
+          path: "replies",
+          model: Thread,
+          populate: replyPopulateOptions(2),
+        },
+      ],
+    })
+    .exec();
+    return thread;
+  } catch (error: any) {
+    throw new Error(
+      `Error fetching thread by parent Id: ${parentId} => ${error.message}`
     );
   }
 }

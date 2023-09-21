@@ -22,7 +22,7 @@ import { useOrganization } from "@clerk/nextjs";
 const PostThread = ({ userId }: { userId: ObjectId | string }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const  organization  = useOrganization();
+  const organization  = useOrganization();
   const form = useForm<z.infer<typeof commentValidation>>({
     resolver: zodResolver(commentValidation),
     defaultValues: {

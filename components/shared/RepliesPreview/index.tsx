@@ -22,8 +22,7 @@ const RepliesPreview = ({
 
   return (
     <div >
-    
-      <HoverCard>
+      <HoverCard openDelay={200}>
         <HoverCardTrigger className=' text-subtle-medium text-gray-1 cursor-pointer '>
           {replies.length > 0 && (
             <div className='ml-2 flex items-center gap-2'>
@@ -62,7 +61,7 @@ const RepliesPreview = ({
           </ScrollArea>
         </HoverCardContent>
       </HoverCard>
-    
+  
     </div>
   );
 };

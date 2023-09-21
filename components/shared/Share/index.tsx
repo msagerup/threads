@@ -6,9 +6,29 @@ import { Label } from '@radix-ui/react-label'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
 
 
 export function Share({link} : {link: string}) {
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(`https://threads-nine-orpin.vercel.app${link}`);
+      toast("😎 Link copied", {
+        autoClose: 1000,
+        type: "success",
+        position: "bottom-right",
+      });
+    } catch (err) {
+      console.error('Failed to copy link: ', err);
+      toast("Ehh, sorry that didn't copy, you have to type it yourself.. sorry.", {
+        autoClose: 3000,
+        type: "error",
+        position: "bottom-right",
+      });
+    }
+  };
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -40,7 +60,7 @@ export function Share({link} : {link: string}) {
               className="h-9 text-gray-1"
             />
           </div>
-          <Button type="submit" size="sm" className="px-3">
+          <Button type="submit" size="sm" className="px-3" onClick={handleCopy}>
             <span className="sr-only">Copy</span>
             <CopyIcon className="h-4 w-4" />
           </Button>

@@ -26,7 +26,7 @@ const RepliesTab = async ({
     <section className='mt-9 flex flex-col gap-10'>
       {replies &&
         replies.map((thread: Thread) => {
-          return <ThreadCard key={thread.id} thread={thread} />;
+          return <ThreadCard key={thread.id} thread={thread} isReplyTab={true}/>;
         })}
     </section>
   );
