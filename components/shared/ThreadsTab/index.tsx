@@ -22,21 +22,23 @@ const ThreadsTab = async ({
   accountType?: "Community";
 }) => {
   // TODO: add union type
-  const threads = accountType
+  const authorThreads = accountType
     ? await fetchCommunityPosts(profileId)
     : await fetchThreadByUserId(profileId);
 
-  if (!threads || !Array.isArray(threads))
+  if (!authorThreads || !Array.isArray(authorThreads))
     return (
       <p className='!text-base-regular text-light-3 mt-10 '>
         No activity here yet, keep on posting!
       </p>
     );
 
+  const threads: Threads = authorThreads[0].threads
+
   return (
     <section className='mt-9 flex flex-col gap-10'>
       {threads &&
-        threads?.map((thread) => {
+        threads.map((thread: Thread) => {
           return <ThreadCard key={thread.id} thread={thread} />;
         })}
     </section>

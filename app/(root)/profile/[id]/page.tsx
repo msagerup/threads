@@ -29,6 +29,8 @@ const Profile = async ({ params }: { params: { id: string } }) => {
     redirect("/onboarding");
   }
 
+  
+
   return (
     <Suspense fallback={<Spinner />}>
       <section>
@@ -52,6 +54,11 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                     />
                     <p className='max-sm:hidden'>{tab.label}</p>
                     {tab.label === "Threads" && (
+                      <p className='ml-1 rounded-md bg-light-4 px-2 py-1 !text-tiny-medium text-light-2'>
+                        {profileData?.threads?.length}
+                      </p>
+                    )}
+                     {tab.label === "Replies" && (
                       <p className='ml-1 rounded-md bg-light-4 px-2 py-1 !text-tiny-medium text-light-2'>
                         {profileData?.threads?.length}
                       </p>

@@ -38,7 +38,6 @@ const ThreadCard = ({
   isLeadThread,
 
 }: {
-  key: any;
   thread: Thread;
   isComment?: boolean;
   hidePreview?: boolean;

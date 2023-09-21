@@ -6,6 +6,7 @@ import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import Community from "../models/community.model";
+import { replyPopulateOptions } from "./helpers/poluateReplies";
 
 interface createThreadProps {
   thread: string;
@@ -13,7 +14,6 @@ interface createThreadProps {
   communityId: string | null | undefined;
   path: string;
 }
-
 
 export async function createThread(values: createThreadProps) {
   const { thread, userId, communityId, path } = values;
@@ -67,11 +67,7 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20) {
         {
           path: "replies",
           model: Thread,
-          populate: {
-            path: "author",
-            model: User,
-            select: "_id id name username profile_photo",
-          },
+          populate: replyPopulateOptions(2),
         },
         { path: "community", model: Community },
       ]);
@@ -107,11 +103,7 @@ export async function fetchThreadById(threadId: string) {
           {
             path: "replies",
             model: Thread,
-            populate: {
-              path: "author",
-              model: User,
-              select: "_id id name username parentId profile_photo",
-            },
+            populate: replyPopulateOptions(2),
           },
         ],
       })
@@ -128,18 +120,25 @@ export async function fetchThreadById(threadId: string) {
 export async function fetchThreadByUserId(userId: string) {
   try {
     await connectToDB();
-    const threads = await Thread.find({ author: userId }).populate([
-      {
-        path: "author",
-        model: User,
-        populate: { path: "communities", model: Community },
-      },
-      {
-        path: "replies",
+    const threads = await User.find({ _id: userId })
+      .populate({
+        path: "threads",
         model: Thread,
-        populate: [{ path: "author", model: User }],
-      },
-    ]);
+        populate: [
+          {
+            path: "author",
+            model: User,
+            select: "_id id name username parentId profile_photo",
+          },
+          {
+            path: "replies",
+            model: Thread,
+            populate: replyPopulateOptions(2),
+          },
+        ],
+      })
+      .populate({ path: "communities", model: Community })
+      .exec();
 
     return threads;
   } catch (error: any) {
@@ -148,39 +147,6 @@ export async function fetchThreadByUserId(userId: string) {
     );
   }
 }
-
-// export async function fetchThreadByUserId(userId: string) {
-
-//   try {
-//     connectToDB();
-
-//     // Find all threads authored by the user with the given userId
-//     const threads = await User.find({ _id: userId }).populate({
-//       path: "threads",
-//       model: Thread,
-//       populate: [
-//         {
-//           path: "community",
-//           model: Community,
-//           select: "name id profile_photo _id", // Select the "name" and "_id" fields from the "Community" model
-//         },
-//         {
-//           path: "replies",
-//           model: Thread,
-//           populate: {
-//             path: "author",
-//             model: User,
-//           },
-//         },
-//       ],
-//     });
-
-//     return threads;
-//   } catch (error) {
-//     console.error("Error fetching user threads:", error);
-//     throw error;
-//   }
-// }
 
 export async function addCommentToThread({
   threadId,

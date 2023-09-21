@@ -3,7 +3,7 @@ This is a "clone of Threads", but this is the desktop version.
 
 The application lets you create threads, comment, tag share etc.. 
 
-#### Buildt with Next.js 13
+#### Buildt with Next.js 13.5
 
 
 ## Live build

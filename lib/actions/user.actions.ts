@@ -6,6 +6,8 @@ import { Thread as ThreadType, userFormData } from "@/types";
 import { SortOrder } from "mongoose";
 import Thread from "../models/thread.model";
 import Community from '../models/community.model';
+import { replyPopulateOptions } from './helpers/poluateReplies';
+
 
 export async function updateUser(
   userId: string,
@@ -41,10 +43,28 @@ export async function updateUser(
 export async function fetchUser(id: string) {
   try {
     await connectToDB();
-    return await User.findOne({ id }).populate({
-      path: "communities",
-      model: Community,
-    });
+    return await User.findOne({ id }).populate([
+      {
+        path: "threads",
+        model: Thread,
+        populate: [
+          {
+            path: "author",
+            model: User,
+            select: "_id id name username parentId profile_photo",
+          },
+          {
+            path: "replies",
+            model: Thread,
+            populate: replyPopulateOptions(2),
+          },
+        ],
+      },
+      {
+        path: "communities",
+        model: Community,
+      }
+    ]);
   } catch (error: any) {
     throw new Error(`Error fetching user: ${error.message}`);
   }

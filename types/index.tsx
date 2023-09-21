@@ -35,9 +35,7 @@ export type Thread = {
   parentId?: ObjectId | string,
 }
 
-export type Threads = {
-  threads: Thread[],
-}
+export type Threads =  Thread[];
 
 export type Author = {
   _id: ObjectId | string,
