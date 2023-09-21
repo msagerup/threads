@@ -1,4 +1,4 @@
-import ProfileHeader from "@/components/shared/ProfileHeader";
+import RepliesTab from "@/components/shared/RepliesTab";
 import Spinner from "@/components/shared/Spinner";
 import ThreadsTab from "@/components/shared/ThreadsTab";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -29,8 +29,6 @@ const Profile = async ({ params }: { params: { id: string } }) => {
     redirect("/onboarding");
   }
 
-  
-
   return (
     <Suspense fallback={<Spinner />}>
       <section>
@@ -58,28 +56,25 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                         {profileData?.threads?.length}
                       </p>
                     )}
-                     {tab.label === "Replies" && (
+                    {tab.label === "Replies" && (
                       <p className='ml-1 rounded-md bg-light-4 px-2 py-1 !text-tiny-medium text-light-2'>
-                        {profileData?.threads?.length}
+                        {profileData?.user_replies.length}
                       </p>
                     )}
                   </TabsTrigger>
                 );
               })}
             </TabsList>
-            {profileTabs.map((tab) => (
-              <TabsContent
-                className='w-full text-light-1'
-                key={`content-${tab.label}`}
-                value={tab.value}
-              >
-                <ThreadsTab
-                  currentUserId={user.id}
-                  profileId={profileData._id.toString()}
-                />
-              </TabsContent>
-            ))}
-            )
+
+            <TabsContent className='w-full text-light-1' value='threads'>
+              <ThreadsTab
+                currentUserId={user.id}
+                profileId={profileData._id.toString()}
+              />
+            </TabsContent>
+            <TabsContent className='w-full text-light-1' value='replies'>
+              <RepliesTab replies={profileData?.user_replies.toObject()} />
+            </TabsContent>
           </Tabs>
         </div>
       </section>

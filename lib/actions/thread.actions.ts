@@ -1,6 +1,6 @@
 "use server";
 
-import { ObjectId } from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import Thread from "../models/thread.model";
 import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
@@ -159,27 +159,50 @@ export async function addCommentToThread({
   userId: string;
   path: string;
 }) {
+  // Start a session, create a comment, add comment to thread, add comment to user
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
-    await connectToDB();
-    const thread = await Thread.findById(threadId);
+    const thread = await Thread.findById(threadId).session(session);
 
     if (!thread) {
       throw new Error(`Thread not found: ${threadId}`);
     }
 
-    const comment = await Thread.create({
-      text: commentText,
-      author: userId,
-      parentId: threadId,
-    });
+    const comment = await Thread.create(
+      [
+        {
+          text: commentText,
+          author: userId,
+          parentId: threadId,
+        },
+      ],
+      { session }
+    );
 
-    // Add comment to thread
-    thread.replies.push(comment._id);
+    const user = await User.findById(userId).session(session);
+    if (!user) {
+      throw new Error(`User not found: ${userId}`);
+    }
+
+    if (!user.user_replies) {
+      user.user_replies = [];
+    }
+    user.user_replies.push(comment[0]._id);
+    await user.save();
+
+    thread.replies.push(comment[0]._id);
     await thread.save();
+
+    await session.commitTransaction();
     revalidatePath(path);
   } catch (error: any) {
+    await session.abortTransaction();
     throw new Error(
       `Error adding comment to thread: ${threadId} => ${error.message}`
     );
+  } finally {
+    session.endSession();
   }
 }

@@ -6,18 +6,13 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   image: String,
   bio: String,
-  threads: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Thread",
-    },
-  ],
+  user_replies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Thread" }],
+  threads:[{ type: mongoose.Schema.Types.ObjectId, ref: "Thread" }],
   onboarded: { type: Boolean, default: false },
   profile_photo: { type: String, default: "" },
   communities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Community" }],
 });
 
-
-const User =  mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;

@@ -30,7 +30,7 @@ const SuggestedUsers = async () => {
             <Suspense fallback={<div>Loading...</div>}>
         <>
           {result.query.map((user) => (
-            <UserCard key={user.id} user={user} />
+            <UserCard key={user.id} user={user.toObject()} />
           ))}
         </>
         </Suspense>

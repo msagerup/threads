@@ -61,6 +61,11 @@ export async function fetchUser(id: string) {
         ],
       },
       {
+        path: "user_replies",
+        model: Thread,
+        populate: replyPopulateOptions(2),
+      },
+      {
         path: "communities",
         model: Community,
       }

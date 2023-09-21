@@ -10,38 +10,26 @@ const ThreadCard = dynamic(() => import('@/components/cards/ThreadCard'), {
   loading: () => <Spinner isComponent size={30} />,
 });
 
-
-const ThreadsTab = async ({
-  currentUserId,
-  profileId,
-  accountType,
+const RepliesTab = async ({
+  replies,
 }: {
-  currentUserId: string;
-  profileId: string;
-  accountType?: "Community";
+    replies: Thread[];
 }) => {
-  // TODO: add union type
-  const authorThreads = accountType
-    ? await fetchCommunityPosts(profileId)
-    : await fetchThreadByUserId(profileId);
-
-  if (!authorThreads || !Array.isArray(authorThreads))
+  
+    if (!replies || !Array.isArray(replies))
     return (
       <p className='!text-base-regular text-light-3 mt-10 '>
-        No activity here yet, keep on posting!
+        No replies here yet.
       </p>
     );
-
-  const threads: Threads = authorThreads[0].threads
-
   return (
     <section className='mt-9 flex flex-col gap-10'>
-      {threads &&
-        threads.map((thread: Thread) => {
+      {replies &&
+        replies.map((thread: Thread) => {
           return <ThreadCard key={thread.id} thread={thread} />;
         })}
     </section>
   );
 };
 
-export default ThreadsTab;
+export default RepliesTab;
