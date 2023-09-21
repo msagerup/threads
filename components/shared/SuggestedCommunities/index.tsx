@@ -1,5 +1,9 @@
-import CommunityCard from "@/components/cards/CommunityCard";
+
 import { fetchCommunities } from "@/lib/actions/community.actions";
+import dynamic from 'next/dynamic';
+
+// Code splitting 
+const CommunityCard = dynamic(() => import('@/components/cards/CommunityCard'))
 
 const SuggestedCommunities = async () => {
   const result = await fetchCommunities({});

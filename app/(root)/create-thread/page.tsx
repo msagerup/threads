@@ -1,11 +1,14 @@
-import PostThread from "@/components/forms/PostThread";
 import Spinner from "@/components/shared/Spinner";
 import { Separator } from '@/components/ui/separator';
 import { fetchUser } from "@/lib/actions/user.actions";
 import { userData } from "@/types";
 import { auth } from "@clerk/nextjs";
+import dynamic from 'next/dynamic';
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+
+// Code Splitting
+const PostThread = dynamic(() => import('@/components/forms/PostThread'))
 
 export default async function CreateThread() {
 

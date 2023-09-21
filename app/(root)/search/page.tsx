@@ -1,11 +1,14 @@
-import UserCard from "@/components/cards/UserCard";
-import SearchBar from '@/components/shared/SearchBar';
 import Spinner from "@/components/shared/Spinner";
 import { Separator } from "@/components/ui/separator";
 import { fetchUsers } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
+import dynamic from 'next/dynamic';
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+
+// Code Splitting
+const UserCard = dynamic(() => import('@/components/cards/UserCard'))
+const SearchBar = dynamic(() => import('@/components/shared/SearchBar'))  
 
 const Search = async({
   searchParams,

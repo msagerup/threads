@@ -1,8 +1,8 @@
-//app/page.tsx
-import ThreadCard from "@/components/cards/ThreadCard";
 import { Separator } from '@/components/ui/separator';
 import { fetchThreads } from "@/lib/actions/thread.actions";
+import dynamic from 'next/dynamic';
 
+const ThreadCard = dynamic(() => import('@/components/cards/ThreadCard'))
 
 export default async function Home() {
   const results = await fetchThreads();

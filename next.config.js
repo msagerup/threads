@@ -30,9 +30,6 @@ const nextConfig = {
           hostname: "cdn.emojidex.com",
         }
       ],
-      typescript: {
-        ignoreBuildErrors: true,
-      },
     },
   };
   

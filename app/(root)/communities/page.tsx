@@ -1,13 +1,14 @@
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-
-// import Pagination from "@/components/shared/Pagination";
-import CommunityCard from "@/components/cards/CommunityCard";
-
 import { fetchUser } from "@/lib/actions/user.actions";
 import { fetchCommunities } from "@/lib/actions/community.actions";
 import { Separator } from '@/components/ui/separator';
 import SearchBar from '@/components/shared/SearchBar';
+import dynamic from 'next/dynamic';
+import Pagination from '@/components/shared/Pagination';
+
+// Code Splitting 
+const CommunityCard = dynamic(() => import('@/components/cards/CommunityCard'))
 
 async function Communities({
   searchParams,
@@ -61,11 +62,11 @@ async function Communities({
         )}
       </section>
 
-      {/* <Pagination
+      <Pagination
         path='communities'
         pageNumber={searchParams?.page ? +searchParams.page : 1}
         isNext={result.isNext}
-      /> */}
+      />
     </>
   );
 }

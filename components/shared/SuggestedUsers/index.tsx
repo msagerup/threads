@@ -1,7 +1,10 @@
-import CommunityCard from "@/components/cards/CommunityCard";
-import UserCard from "@/components/cards/UserCard";
 import { fetchUsers } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+
+// Code splitting
+const UserCard = dynamic(() => import('@/components/cards/UserCard'))
 
 const SuggestedUsers = async () => {
   const { userId } = auth();
@@ -24,11 +27,13 @@ const SuggestedUsers = async () => {
       {result.query.length === 0 ? (
         <p className='!text-base-regular text-light-3'>No results found</p>
       ) : (
+            <Suspense fallback={<div>Loading...</div>}>
         <>
           {result.query.map((user) => (
             <UserCard key={user.id} user={user} />
           ))}
         </>
+        </Suspense>
       )}
     </section>
   );

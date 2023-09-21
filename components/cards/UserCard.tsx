@@ -10,7 +10,7 @@ const UserCard = ({ user }: { user: userData }) => {
   const { id, name, username, profile_photo } = user;
 
   return (
-    <article className='community-card'>
+    <article className='community-card flex-grow'>
       <div className='flex flex-wrap items-center gap-3'>
         <Link href={`/profile/${id}`} className='relative h-12 w-12'>
           <Image

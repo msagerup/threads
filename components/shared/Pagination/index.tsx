@@ -2,9 +2,6 @@
 
 import { Button } from '@/components/ui/button';
 import { useRouter } from "next/navigation";
-
-
-
 interface Props {
   pageNumber: number;
   isNext: boolean;
