@@ -20,7 +20,7 @@ const SuggestedUsers = async () => {
     return <p className='!text-base-regular text-light-3'>No results found</p>;
 
   return (
-    <section className='mt-9 flex flex-wrap gap-4'>
+    <section className='mt-3 flex flex-wrap gap-2'>
        <header className='px-4'>
         <h2 className='text-light-1'>Active users</h2>
       </header>
