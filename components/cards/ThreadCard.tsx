@@ -6,15 +6,20 @@ import Share from "../shared/Share";
 import RepliesPreview from "../shared/RepliesPreview";
 import { formatDateString } from "@/lib/utils";
 import { Separator } from "../ui/separator";
-import dynamic from 'next/dynamic';
-import Spinner from '../shared/Spinner';
+import dynamic from "next/dynamic";
+import Spinner from "../shared/Spinner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 // Code spitting
-const AsyncPreview = dynamic(() => import('@/components/shared/AsyncPreview'), {
+const AsyncPreview = dynamic(() => import("@/components/shared/AsyncPreview"), {
   ssr: false,
   loading: () => <Spinner isComponent size={30} />,
-})  
-
+});
 
 const renderSocialLinks = (id: string): ReactNode => {
   // TODO: implement other social links
@@ -102,9 +107,10 @@ const ThreadCard = ({
                 className='cursor-pointer rounded-md'
               />
             </Link>
-            {(replies.length !== 0 || isComment) && (
+            {(replies.length !== 0 || isComment)  && (
               <div className='thread-card_bar' />
             )}
+            
           </div>
           <div className='flex w-full flex-col'>
             <div className='flex items-center w-full flex-row'>
@@ -116,10 +122,8 @@ const ThreadCard = ({
               {isReplyTab && (
                 <div className='ml-1'>
                   <span className='text-subtle-medium text-gray-1'>
-                  - Replied to:{" "}
-                  <AsyncPreview id={id} text={id} />
-                  
-                </span>
+                    - Replied to: <AsyncPreview id={id} text={id} />
+                  </span>
                 </div>
               )}
             </div>
@@ -134,10 +138,25 @@ const ThreadCard = ({
             <p className='mt-5 text-small-regular text-light-2'>{text}</p>
 
             <div className={`${isComment && "mb-5"} mt-3 flex flex-col gap-3`}>
-              <div className='flex gap-3.5'>
-                {socialImageLinks}
-                <Share link={`/thread/${id}`} />
-              </div>
+              <TooltipProvider delayDuration={200}>
+                <div className='flex gap-3.5'>
+                 {!isLeadThread &&  <Tooltip>
+                    <TooltipTrigger>{socialImageLinks}</TooltipTrigger>
+                    <TooltipContent side='bottom'>
+                      <p className='text-small-regular'>Comment on this thread</p>
+                    </TooltipContent>
+                  </Tooltip>}
+
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Share link={`/thread/${id}`} />
+                    </TooltipTrigger>
+                    <TooltipContent side='bottom'>
+                      <p className='text-small-regular'>Share thread link</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </TooltipProvider>
             </div>
           </div>
         </div>
