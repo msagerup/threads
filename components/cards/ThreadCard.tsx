@@ -142,7 +142,7 @@ const ThreadCard = ({
                 <div className='flex gap-3.5'>
                  {!isLeadThread &&  <Tooltip>
                     <TooltipTrigger>{socialImageLinks}</TooltipTrigger>
-                    <TooltipContent side='bottom'>
+                    <TooltipContent side='left'>
                       <p className='text-small-regular'>Comment on this thread</p>
                     </TooltipContent>
                   </Tooltip>}
@@ -151,7 +151,7 @@ const ThreadCard = ({
                     <TooltipTrigger>
                       <Share link={`/thread/${id}`} />
                     </TooltipTrigger>
-                    <TooltipContent side='bottom'>
+                    <TooltipContent side='right'>
                       <p className='text-small-regular'>Share thread link</p>
                     </TooltipContent>
                   </Tooltip>
