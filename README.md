@@ -38,7 +38,6 @@ Zod (https://zod.dev/) : To validate form inputs
 + Split code into server side and client side components. 
 + Implement Next 13's Server side actions.
 
+![image](https://github.com/msagerup/threads/assets/23620566/74fd85e2-977c-47c1-9bbc-16cc94ee8696)
 
-WIP: 
 
-![image](https://github.com/msagerup/threads/assets/23620566/2bbf0232-79bf-47ed-a80e-3af0141c5cec)
