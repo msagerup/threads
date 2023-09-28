@@ -1,14 +1,12 @@
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs";
-
 import { communityTabs } from "@/constants";
-
-import UserCard from "@/components/cards/UserCard";
 import ThreadsTab from "@/components/shared/ThreadsTab";
 import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { fetchCommunityDetails } from "@/lib/actions/community.actions";
+import UserCard from '@/components/cards/UserCard';
 
 async function CommunityWithParam({ params }: { params: { id: string } }) {
   const user = await currentUser();
@@ -16,13 +14,9 @@ async function CommunityWithParam({ params }: { params: { id: string } }) {
 
   const communityDetails = await fetchCommunityDetails(params.id);
 
-  // console.log(communityDetails);
-
   return (
     <section>
-      <ProfileHeader
-       profile ={communityDetails}
-      />
+      <ProfileHeader profile={communityDetails} />
 
       <div className='mt-9'>
         <Tabs defaultValue='threads' className='w-full'>
@@ -48,7 +42,6 @@ async function CommunityWithParam({ params }: { params: { id: string } }) {
           </TabsList>
 
           <TabsContent value='threads' className='w-full text-light-1'>
-            {/* @ts-ignore */}
             <ThreadsTab
               currentUserId={user.id}
               profileId={communityDetails.id}
@@ -60,6 +53,7 @@ async function CommunityWithParam({ params }: { params: { id: string } }) {
             <section className='mt-9 flex flex-col gap-10'>
               {/* {communityDetails.members.map((member: any) => (
                 <UserCard
+                key={member_id}
                 user={member}
                   personType='User'
                 />

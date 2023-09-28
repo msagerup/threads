@@ -1,8 +1,8 @@
 import Spinner from "@/components/shared/Spinner";
 import { Button } from "@/components/ui/button";
-import { Separator } from '@/components/ui/separator';
+import { Separator } from "@/components/ui/separator";
 import { fetchUser, getNotifications } from "@/lib/actions/user.actions";
-import { Thread, userData } from "@/types";
+import { userData } from "@/types";
 import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,18 +17,19 @@ const Activity = async () => {
   }
   const userInfo: userData = await fetchUser(user.id);
 
-  const results = await getNotifications(userInfo._id.toString());
-
-  if (!userInfo?.onboarded) {
+  if (!userInfo?.onboarded || !userInfo._id) {
     redirect("/onboarding");
   }
+
+  const results = await getNotifications(userInfo?._id.toString());
+
   return (
     <section>
       <header className='mb-10'>
         <h1 className='head-text'>Activity</h1>
         <Separator className='separator' />
         <div className='text-subtle-large text-gray-1 '>
-          Want to get more replies? Start posting! 🎉 
+          Want to get more replies? Start posting! 🎉
         </div>
       </header>
       <Suspense fallback={<Spinner />}>

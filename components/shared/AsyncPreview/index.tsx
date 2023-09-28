@@ -23,7 +23,6 @@ const AsyncPreview = async ({
       <HoverCardTrigger className=' text-subtle-medium text-gray-1 cursor-pointer '>
         <span className='mr-1 text-primary-500'>{text}</span>
       </HoverCardTrigger>
-
       <HoverCardContent align='start' className='bg-dark-2 w-[650px] '>
         <ScrollArea className='h-[200px]'>
           <ThreadCard thread={thread} />

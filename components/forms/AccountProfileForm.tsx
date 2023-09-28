@@ -24,15 +24,10 @@ import { isBase64Image } from "@/lib/utils";
 
 import { userValidation } from "@/lib/validations/user";
 import { updateUser } from "@/lib/actions/user.actions";
+import { userData } from '@/types';
 
 interface AccountProfileProps {
-  user: {
-    id?: string;
-    username: string;
-    name: string;
-    bio: string;
-    profile_photo: string;
-  };
+  user: userData
   btnTitle: string;
 }
 

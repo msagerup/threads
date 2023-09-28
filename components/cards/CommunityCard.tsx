@@ -10,7 +10,7 @@ interface CommunityCardProps {
   imgUrl: string;
   bio: string;
   members: {
-    image: string;
+    profile_photo: string;
   }[];
 }
 

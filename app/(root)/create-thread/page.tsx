@@ -18,7 +18,7 @@ export default async function CreateThread() {
     redirect("/sign-in");
   }
   const userInfo: userData = await fetchUser(userId);
-  if (!userInfo?.onboarded) {
+  if (!userInfo?.onboarded || !userInfo._id) {
     redirect("/onboarding");
   }
 
@@ -32,7 +32,7 @@ export default async function CreateThread() {
         </div>
       </header>
       <Suspense fallback={<Spinner />}>
-        <PostThread userId={userInfo._id.toString()} />
+        <PostThread userId={userInfo?._id.toString()} />
       </Suspense>
     </section>
   );

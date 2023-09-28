@@ -5,7 +5,6 @@ import { ReactNode } from "react";
 import Share from "../shared/Share";
 import RepliesPreview from "../shared/RepliesPreview";
 import { formatDateString } from "@/lib/utils";
-import { Separator } from "../ui/separator";
 import dynamic from "next/dynamic";
 import Spinner from "../shared/Spinner";
 import {

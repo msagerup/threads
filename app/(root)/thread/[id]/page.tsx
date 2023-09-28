@@ -2,7 +2,7 @@ import ThreadCard from "@/components/cards/ThreadCard";
 import Comment from "@/components/forms/CommentForm";
 import { fetchThreadById } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
-import { Thread } from "@/types";
+import { Thread, userData } from "@/types";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
@@ -16,11 +16,12 @@ const ThreadDetails = async ({
     redirect("/sign-in");
   }
 
-  const [userInfo, thread] = await Promise.all([
+  const [userInfo, thread] : [userData, Thread] = await Promise.all([
     fetchUser(userId),
     fetchThreadById(id),
   ]);
-  if (!userInfo?.onboarded) {
+
+  if (!userInfo?.onboarded || !userInfo._id) {
     redirect("/onboarding");
   }
 
@@ -34,12 +35,12 @@ const ThreadDetails = async ({
         <Comment
           threadId={thread._id.toString()}
           userProfilePhoto={userInfo.profile_photo}
-          userId={userInfo._id.toString()}
+          userId={userInfo?._id.toString()}
         />
       </div>
       <div className='mt-10'>
         {thread.replies.map((reply: Thread) => {
-          return <ThreadCard key={reply._id} thread={reply} isComment={true} />;
+          return <ThreadCard key={reply._id as any} thread={reply} isComment={true} />;
         })}
       </div>
     </section>

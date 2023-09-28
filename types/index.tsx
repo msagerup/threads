@@ -4,15 +4,15 @@
 import { ObjectId } from 'mongoose';
 
 export type userData = {
-  _id: ObjectId | string;
+  _id?: ObjectId | string;
   id: string;
-  objectId: string;
-  username: string;
+  objectId?: string;
+  username?: string | null;
   name: string;
   bio: string;
   profile_photo: string;
   onboarded?: boolean;
-  threads: ObjectId[]
+  threads?: ObjectId[]
   image?: string;
 };
 

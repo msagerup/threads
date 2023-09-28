@@ -1,10 +1,13 @@
 import AccountProfileForm from "@/components/forms/AccountProfileForm";
 import { fetchUser } from "@/lib/actions/user.actions";
+import { userData } from "@/types";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 async function Page() {
   const user = await currentUser();
+
+  console.log(user);
 
   if (!user) {
     redirect("/sign-up");
@@ -16,13 +19,13 @@ async function Page() {
     redirect("/");
   }
 
-const userInfoCondensed = {
-  id: user?.id,
-  username: user?.username,
-  name:user?.firstName + ' ' + user?.lastName,
-  bio: user?.bio,
-  profile_photo:user?.imageUrl 
-}
+  const userInfoCondensed: userData = {
+    id: user?.id,
+    username: user?.username,
+    name: user?.firstName + " " + user?.lastName,
+    bio: user?.bio,
+    profile_photo: user?.imageUrl,
+  };
 
   return (
     <main className='mx-auto flex max-w-3xl flex-col justify-start px-10 py-20'>
